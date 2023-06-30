@@ -14,10 +14,14 @@ const Signup = ({ handleAuthEvt }) => {
 
   const [message, setMessage] = useState('')
   const [formData, setFormData] = useState({
-    name: '',
+    role: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     passwordConf: '',
+    gender: '',
+    grade: '',
   })
   const [photoData, setPhotoData] = useState({ photo: null })
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -60,6 +64,15 @@ const Signup = ({ handleAuthEvt }) => {
       if (!import.meta.env.VITE_BACK_END_SERVER_URL) {
         throw new Error('No VITE_BACK_END_SERVER_URL in front-end .env')
       }
+      const roles = {
+        'diver': 1,
+        'coach': 2,
+        'manager': 3,
+        'admin': 4,
+      }
+  
+      // Map formData.role from string to number before sending to the server
+      formData.role = roles[formData.role]
       setIsSubmitted(true)
       await authService.signup(formData, photoData.photo)
       handleAuthEvt()
@@ -71,20 +84,39 @@ const Signup = ({ handleAuthEvt }) => {
     }
   }
 
-  const { name, email, password, passwordConf } = formData
+  const { firstName, lastName, email, password, passwordConf } = formData
 
   const isFormInvalid = () => {
-    return !(name && email && password && password === passwordConf)
+    return !(firstName && lastName && email && password && password === passwordConf)
   }
 
   return (
     <main className={styles.container}>
       <h1>Sign Up</h1>
       <p className={styles.message}>{message}</p>
+      {/* Dropdown for selecting role */}
+      <div className={styles.roleDropdown}>
+        <label htmlFor="role">Role:</label>
+        <select
+          name="role"
+          id="role"
+          value={formData.role}
+          onChange={handleChange}
+        >
+          <option value="">Select Role</option>
+          <option value="diver">Diver</option>
+          <option value="coach">Coach</option>
+          <option value="manager">Manager</option>
+        </select>
+      </div>
       <form autoComplete="off" onSubmit={handleSubmit} className={styles.form}>
         <label className={styles.label}>
-          Name
-          <input type="text" value={name} name="name" onChange={handleChange} />
+          First Name
+          <input type="text" value={firstName} name="firstName" onChange={handleChange} />
+        </label>
+        <label className={styles.label}>
+          Last Name
+          <input type="text" value={lastName} name="lastName" onChange={handleChange} />
         </label>
         <label className={styles.label}>
           Email
@@ -113,6 +145,28 @@ const Signup = ({ handleAuthEvt }) => {
             onChange={handleChange}
           />
         </label>
+        {formData.role === 'diver' && (
+          <>
+            <label className={styles.label}>
+              Gender
+              <select name="gender" onChange={handleChange}>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </label>
+            <label className={styles.label}>
+              Grade
+              <select name="grade" onChange={handleChange}>
+                <option value="">Select Grade</option>
+                <option value="Freshman">Freshman</option>
+                <option value="Sophomore">Sophomore</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+              </select>
+            </label>
+          </>
+        )}
         <label className={styles.label}>
           Upload Photo
           <input 
