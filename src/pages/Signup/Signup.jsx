@@ -20,8 +20,8 @@ const Signup = ({ handleAuthEvt }) => {
     email: '',
     password: '',
     passwordConf: '',
-    gender: '',
-    grade: '',
+    gender: null,
+    grade: null,
   })
   const [photoData, setPhotoData] = useState({ photo: null })
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -87,8 +87,12 @@ const Signup = ({ handleAuthEvt }) => {
   const { firstName, lastName, email, password, passwordConf } = formData
 
   const isFormInvalid = () => {
-    return !(firstName && lastName && email && password && password === passwordConf)
+    const { firstName, lastName, email, password, passwordConf, role, gender, grade } = formData;
+    return !(firstName && lastName && email && password && password === passwordConf && 
+      (role !== 'diver' || (role === 'diver' && gender && grade))
+    )
   }
+  
 
   return (
     <main className={styles.container}>
@@ -149,16 +153,16 @@ const Signup = ({ handleAuthEvt }) => {
           <>
             <label className={styles.label}>
               Gender
-              <select name="gender" onChange={handleChange}>
-                <option value="">Select Gender</option>
+              <select name="gender" onChange={handleChange} value={formData.gender ?? ''}>
+                <option value="" disabled>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </label>
             <label className={styles.label}>
               Grade
-              <select name="grade" onChange={handleChange}>
-                <option value="">Select Grade</option>
+              <select name="grade" onChange={handleChange} value={formData.grade ?? ''}>
+                <option value="" disabled>Select Grade</option>
                 <option value="Freshman">Freshman</option>
                 <option value="Sophomore">Sophomore</option>
                 <option value="Junior">Junior</option>
