@@ -1,5 +1,5 @@
 // npm modules
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // pages
@@ -8,6 +8,8 @@ import Login from './pages/Login/Login'
 import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
+import DiveSheets from './pages/DiveSheets/DiveSheets'
+import NewDiveSheet from './pages/NewDiveSheet/NewDiveSheet'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -15,6 +17,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
+// import * as sheetService from './services/sheetService'
 
 // styles
 import './App.css'
@@ -53,6 +56,22 @@ function App() {
         <Route
           path="/auth/login"
           element={<Login handleAuthEvt={handleAuthEvt} />}
+        />
+        <Route
+          path="/DiveSheets"
+          element={
+            <ProtectedRoute user={user}>
+              <DiveSheets />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/NewDiveSheet"
+          element={
+            <ProtectedRoute user={user}>
+              <NewDiveSheet />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/auth/change-password"

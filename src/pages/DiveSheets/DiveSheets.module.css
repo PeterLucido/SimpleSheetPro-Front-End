@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  gap: 14px;
+  width: 350px;
+  padding: 21px;
+  flex-direction: column;
+  border: 2px solid blue;
+  border-radius: 5%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  justify-content: center;
+  align-items: center; 
+}
+
+.button {
+  width: fit-content;
+}
+
+@media only screen and (min-width: 900px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
