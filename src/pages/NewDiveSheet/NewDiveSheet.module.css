@@ -1,10 +1,40 @@
 /* NewDiveSheet.module.css */
 
 .container {
+  display: flex;
   position: relative;
+  justify-content: center;
   width: 900px;
   height: auto;
   margin: auto;
+}
+
+.leftcontainer {
+  display: flex;
+  width: 250px;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 50px;
+  box-sizing: border-box;
+  background-color: white; /* Set the background color of the box */
+  color: black; /* Set the color of the text */
+  justify-content: center; /* Centers the text horizontally */
+  margin-right: 125px;
+  border-radius: 15px;
+}
+
+.rightcontainer {
+  display: flex;
+  width: 250px;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 50px;
+  box-sizing: border-box;
+  background-color: white; /* Set the background color of the box */
+  color: black; /* Set the color of the text */
+  justify-content: center; /* Centers the text horizontally */
+  margin-left: 125px;
+  border-radius: 15px;
 }
 
 .backgroundImage {
@@ -23,4 +53,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 10px;
 }
