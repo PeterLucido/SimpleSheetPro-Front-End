@@ -1,12 +1,12 @@
-// DiveSheets.js
-
 import React, { useState } from 'react'
-import styles from './DiveSheets.module.css'
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
 
 const DiveSheet = ({ title }) => (
-  <div className={styles.container}>
+  <div className="flex flex-col justify-items-center items-center border border-blue-500 m-auto p-5 w-80 h-48 rounded-lg absolute inset-0 gap-4">
     <h1>{title}</h1>
-    <button>Open</button>
+    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">Open</button>
   </div>
 );
 
@@ -25,9 +25,11 @@ const DiveSheets = () => {
   return (
     <div>
       {diveSheets.length === 0 ? (
-        <div className={styles.container}>
+        <div className="flex flex-col justify-center items-center border border-blue-500 m-auto p-5 w-80 h-48 rounded-lg absolute inset-0 gap-4">
           <h1>Create a Dive Sheet</h1>
-          <button className={styles.button} onClick={createDiveSheet}>Create</button>
+          <NavLink to="/NewDiveSheet" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md">
+            Create
+          </NavLink>
         </div>
       ) : (
         diveSheets.map((title, index) => (

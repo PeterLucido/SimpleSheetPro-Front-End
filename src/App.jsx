@@ -21,6 +21,7 @@ import * as authService from './services/authService'
 
 // styles
 import './App.css'
+import './tailwind.css'
 
 function App() {
   const [user, setUser] = useState(authService.getUser())
