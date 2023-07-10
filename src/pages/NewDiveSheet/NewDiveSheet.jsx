@@ -18,6 +18,7 @@ const NewDiveSheet = () => {
 
   return (
     <>
+    <div className={styles.fullContainer}>
     <div className={styles.titleContainer}>
       <label>Title:</label>
       <input 
@@ -36,21 +37,16 @@ const NewDiveSheet = () => {
       </label>
     </div>
     <div className={styles.container}>
-      <div className={styles.leftcontainer}>
-        <h1>1m</h1>
-      </div>
       <img src={divesheetbackground} className={styles.backgroundImage} id={styles.sheet}/>
       <form className={styles.overlayForm}>
         {/* Your form fields and buttons here */}
       </form>
-      <div className={styles.rightcontainer}>
-        <h1>1m</h1>
-      </div>
     </div>
     <div className={styles.buttonContainer}>
       <button className={styles.button}>Save</button>
       <button className={styles.button}>Print</button>
       <button className={styles.button}>Delete</button>
+    </div>
     </div>
     </>
   );
