@@ -1,5 +1,3 @@
-/* NewDiveSheet.module.css */
-
 .container {
   display: flex;
   position: relative;
@@ -16,17 +14,6 @@
   margin-bottom: 10px;
 }
 
-.overlayForm {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 .titleContainer {
   display: flex;
@@ -40,4 +27,51 @@
   flex-direction: column;
   align-items: center;
   margin-top: 100px;
+}
+
+.overlayForm input[type="text"],
+.overlayForm input[type="number"] {
+  outline: 2px solid red;
+}
+
+.overlayForm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.diveInputContainer{
+  display: flex;
+}
+
+/* .overlayForm :nth-child(-n+4) {
+  display: flex;
+  background-color: aqua;
+} */
+
+.overlayForm :first-child {
+background-color: aquamarine;
+}
+
+.dd {
+  background-color: black;
+  width: 50px;
+}
+
+.divenumber{
+  background-color: blue;
+}
+
+.dive {
+  background-color: brown;
+}
+
+.position {
+  background-color: coral;
 }
