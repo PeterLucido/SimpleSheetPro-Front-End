@@ -1,6 +1,7 @@
 // npm modules
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 // pages
 import Signup from './pages/Signup/Signup'
@@ -12,7 +13,10 @@ import DiveSheets from './pages/DiveSheets/DiveSheets'
 import NewDiveSheet from './pages/NewDiveSheet/NewDiveSheet'
 
 // components
-import NavBar from './components/NavBar/NavBar'
+// import NavBar from './components/NavBar/NavBar'
+import TitleBox from './components/TitleBox/TitleBox'
+import LeftSideBar from './components/LeftSideBar/LeftSideBar'
+import RightSideBar from './components/RightSideBar/RightSideBar'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
@@ -25,6 +29,25 @@ import './App.css'
 function App() {
   const [user, setUser] = useState(authService.getUser())
   const navigate = useNavigate()
+  const [title, setTitle] = useState('Simple Sheet Pro')
+
+
+  const location = useLocation();
+
+  // Run this effect whenever the location changes
+  useEffect(() => {
+    switch(location.pathname) {
+      case '/profiles':
+        setTitle('Profiles');
+        break;
+      case '/DiveSheets':
+        setTitle('Dive Sheets');
+        break;
+      // Add more cases as needed for each route
+      default:
+        setTitle('Simple Sheet Pro'); // default title
+    }
+  }, [location]);
 
   const handleLogout = () => {
     authService.logout()
@@ -38,7 +61,8 @@ function App() {
 
   return (
     <>
-      <NavBar user={user} handleLogout={handleLogout} />
+      <TitleBox title={title} />
+      <LeftSideBar user={user} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Landing user={user} />} />
         <Route
@@ -82,6 +106,7 @@ function App() {
           }
         />
       </Routes>
+      <RightSideBar />
     </>
   )
 }
