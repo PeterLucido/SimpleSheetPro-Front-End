@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import pfp from '/src/pfp.png';
 
 const LeftSideBar = ({ user, handleLogout }) => {
   return (
     <div className="left-sidebar">
-      <img src={user.profilePhoto} alt={user.name} />
+      <img src={pfp.png} />
       <ul>
-        <li>Welcome, {user.name}</li>
+        <h1>Welcome</h1>
         <li><NavLink to="/profiles">Profiles</NavLink></li>
         <li><NavLink to="/DiveSheets">Dive Sheets</NavLink></li>
         <li><NavLink to="/NewDiveSheet">New Dive Sheet</NavLink></li>
