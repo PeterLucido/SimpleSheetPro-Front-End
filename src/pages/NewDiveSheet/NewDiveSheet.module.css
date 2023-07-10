@@ -4,7 +4,6 @@
   display: flex;
   position: relative;
   justify-content: center;
-  top: 300px;
   width: 900px;
   height: auto;
   margin: auto;
@@ -14,6 +13,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  margin-bottom: 10px;
 }
 
 .overlayForm {
@@ -32,10 +32,12 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .fullContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 100px;
 }
