@@ -50,28 +50,50 @@
   display: flex;
 }
 
-/* .overlayForm :nth-child(-n+4) {
+.diveInputContainer-dive-0{
   display: flex;
-  background-color: aqua;
-} */
+  flex-direction: row;
+  width: 200px;
+  color: blueviolet;
+}
+.dive-1{
+  display: flex;
+  flex-direction: row;
+}
+.dive-2{
+  display: flex;
+  flex-direction: row;
+}
+.dive-3{
+  display: flex;
+  flex-direction: row;
+}
+.dive-4{
+  display: flex;
+  flex-direction: row;
+}
+.dive-5{
+  display: flex;
+  background-color: black;
+}
 
-.overlayForm :first-child {
-background-color: aquamarine;
+
+.divenumber{
+  background-color: blue;
+  width: 50px;
+}
+
+.dive {
+  background-color: brown;
+  width: 50px;
+}
+
+.position {
+  background-color: coral;
+  width: 50px;
 }
 
 .dd {
   background-color: black;
   width: 50px;
-}
-
-.divenumber{
-  background-color: blue;
-}
-
-.dive {
-  background-color: brown;
-}
-
-.position {
-  background-color: coral;
 }

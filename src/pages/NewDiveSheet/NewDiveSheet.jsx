@@ -70,7 +70,7 @@ const NewDiveSheet = () => {
             onSubmit={handleDiveSheetSubmit}
           >
             {dives.map((dive, index) => (
-              <div key={index} className={`${styles.diveInputContainer} ${index + 1}`}>
+              <div key={index} className={`diveInputContainer-dive-${index}`}>
                 <div className={styles.divenumber}>
                   <label>Dive {index + 1}:</label>
                   <input
