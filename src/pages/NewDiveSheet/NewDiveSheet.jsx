@@ -7,7 +7,7 @@ import divesheetbackground from '/src/divesheetbackground.png';
 const NewDiveSheet = () => {
   const [title, setTitle] = useState('');
   const [isElevenDive, setIsElevenDive] = useState(false);
-  const [dives, setDives] = useState(Array(6).fill({ diveNumber: '', dive: '', position: '', dd: 0 }));
+  const [dives, setDives] = useState(Array(6).fill({ diveNumber: '', dive: '', position: '', dd: '' }));
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -17,7 +17,7 @@ const NewDiveSheet = () => {
     setIsElevenDive(e.target.checked);
     setDives(prevDives => {
       if (e.target.checked) {
-        return Array(11).fill({ diveNumber: '', dive: '', position: '', dd: 0 });
+        return Array(11).fill({ diveNumber: '', dive: '', position: '', dd: '' });
       } else {
         return prevDives.slice(0, 6);
       }
@@ -72,42 +72,33 @@ const NewDiveSheet = () => {
             {dives.map((dive, index) => (
               <div key={index} className={`diveInputContainer-dive-${index}`}>
                 <div className={styles.divenumber}>
-                  <label>Dive {index + 1}:</label>
                   <input
                     type="text"
                     name={`diveNumber-${index}`}
-                    placeholder="Dive Number"
                     value={dive.diveNumber}
                     onChange={(e) => handleDiveChange(e, index)}
                   />
                 </div>
                 <div className={styles.dive}>
-                  <label>Dive:</label>
                   <input
                     type="text"
                     name={`dive-${index}`}
-                    placeholder="Dive"
                     value={dive.dive}
                     onChange={(e) => handleDiveChange(e, index)}
                   />
                 </div>
                 <div className={styles.position}>
-                  <label>Position:</label>
                   <input
                     type="text"
                     name={`position-${index}`}
-                    placeholder="Position"
                     value={dive.position}
                     onChange={(e) => handleDiveChange(e, index)}
                   />
                 </div>
                 <div className={styles.dd}>
-                  <label>DD:</label>
                   <input
-                    type="number"
+                    type="text"
                     name={`dd-${index}`}
-                    placeholder="DD"
-                    step="0.1"
                     value={dive.dd}
                     onChange={(e) => handleDiveChange(e, index)}
                   />
