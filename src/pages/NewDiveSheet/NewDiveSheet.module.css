@@ -29,71 +29,87 @@
   margin-top: 100px;
 }
 
-.overlayForm input[type="text"],
-.overlayForm input[type="number"] {
-  outline: 2px solid red;
-}
-
 .overlayForm {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -10px;
+  left: 69px;
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .diveInputContainer{
   display: flex;
+  width: auto;
 }
-
-.diveInputContainer-dive-0{
-  display: flex;
-  flex-direction: row;
-  width: 200px;
-  color: blueviolet;
-}
-.dive-1{
-  display: flex;
-  flex-direction: row;
-}
-.dive-2{
-  display: flex;
-  flex-direction: row;
-}
-.dive-3{
-  display: flex;
-  flex-direction: row;
-}
-.dive-4{
-  display: flex;
-  flex-direction: row;
-}
-.dive-5{
-  display: flex;
-  background-color: black;
-}
-
 
 .divenumber{
-  background-color: blue;
+  display: flex;
   width: 50px;
+  position: relative;
+  height: 23px;
+  left: 16px;
+}
+
+.divenumber input[type="text"] {
+  width: 35px;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
 }
 
 .dive {
-  background-color: brown;
-  width: 50px;
+  display: flex;
+  width: 222px;
+  position: relative;
+  height: 23px;
+  left: 6px;
+}
+
+.dive input[type="text"] {
+  width: 240px;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
 }
 
 .position {
-  background-color: coral;
+  display: flex;
   width: 50px;
+  position: relative;
+  height: 23px;
+  left: 10px;
+}
+
+.position input[type="text"] {
+  width: 35px;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
 }
 
 .dd {
-  background-color: black;
-  width: 50px;
+  display: flex;
+  width: 20px;
+  position: relative;
+  height: 23px;
+  left: 338px;
+}
+
+.dd input[type="text"] {
+  width: 25px;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
 }
