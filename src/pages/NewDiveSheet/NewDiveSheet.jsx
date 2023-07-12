@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './NewDiveSheet.module.css';
 import divesheetbackground from '/src/divesheetbackground.png';
 
@@ -6,7 +6,37 @@ const NewDiveSheet = () => {
   const [title, setTitle] = useState('');
   const [isElevenDive, setIsElevenDive] = useState(false);
   const [dives, setDives] = useState(Array(6).fill({ diveNumber: '', dive: '', position: '', dd: '' }));
+  const [selectedDiveIndex, setSelectedDiveIndex] = useState(null);
   const [diveOptions, setDiveOptions] = useState([]);
+
+  const diveData = [
+    { diveNumber: '101', dive: 'Forward Dive', position: 'C', dd: 1.2 },
+    { diveNumber: '101', dive: 'Forward Dive', position: 'B', dd: 1.3 },
+    { diveNumber: '101', dive: 'Forward Dive', position: 'A', dd: 1.4 },
+    { diveNumber: '102', dive: 'Forward 1 SS', position: 'C', dd: 1.4 },
+    { diveNumber: '102', dive: 'Forward 1 SS', position: 'B', dd: 1.5 },
+    { diveNumber: '102', dive: 'Forward 1 SS', position: 'A', dd: 1.6 },
+    { diveNumber: '103', dive: 'Forward 1 1/2 SS', position: 'C', dd: 1.6 },
+    { diveNumber: '103', dive: 'Forward 1 1/2 SS', position: 'B', dd: 1.7 },
+    { diveNumber: '103', dive: 'Forward 1 1/2 SS', position: 'A', dd: 2.0 }
+  ];
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setDiveOptions([]);
+        setSelectedDiveIndex(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -14,7 +44,7 @@ const NewDiveSheet = () => {
 
   const handleCheckboxChange = (e) => {
     setIsElevenDive(e.target.checked);
-    setDives(prevDives => {
+    setDives((prevDives) => {
       if (e.target.checked) {
         return Array(11).fill({ diveNumber: '', dive: '', position: '', dd: '' });
       } else {
@@ -23,11 +53,11 @@ const NewDiveSheet = () => {
     });
   };
 
-  const handleDiveChange = async (e, index, fieldName) => {
-    const { name, value } = e.target;
+  const handleDiveChange = (e, index, fieldName) => {
+    const { value } = e.target;
 
     // Update the dives state with the new value
-    setDives(prevDives => {
+    setDives((prevDives) => {
       const updatedDives = [...prevDives];
       updatedDives[index] = { ...updatedDives[index], [fieldName]: value };
       return updatedDives;
@@ -39,56 +69,59 @@ const NewDiveSheet = () => {
       [fieldName]: value
     };
 
-    // Log the updated dive and the API request
-    console.log('Updated Dive:', { diveNumber, dive, position, dd });
-    console.log('Input Field:', name);
-    console.log('Input Value:', value);
-    console.log('API Request:', { diveNumber, dive, position, dd });
-    
-    const response = await fetch(`/api/dives?diveNumber=${diveNumber}&dive=${dive}&position=${position}&dd=${dd}`);
-    const diveOptions = await response.json();
-    
-    // Update the diveOptions state for the current index
-    setDiveOptions(prevOptions => {
+    // Clear the suggestions if the field is empty
+    if (!value) {
+      setDiveOptions((prevOptions) => {
+        const updatedOptions = [...prevOptions];
+        updatedOptions[index] = [];
+        return updatedOptions;
+      });
+      return;
+    }
+
+    // Filter diveData based on diveNumber, dive, position, and dd
+    const filteredDives = diveData.filter((item) => {
+      const { diveNumber: itemDiveNumber, dive: itemDive, position: itemPosition, dd: itemDD } = item;
+      return (
+        (!diveNumber || itemDiveNumber.includes(diveNumber)) &&
+        (!dive || itemDive.toLowerCase().includes(dive.toLowerCase())) &&
+        (!position || itemPosition.toLowerCase() === position.toLowerCase()) &&
+        (!dd || itemDD === dd)
+      );
+    });
+
+    // Update the dive options state for the current index
+    setDiveOptions((prevOptions) => {
       const updatedOptions = [...prevOptions];
-      updatedOptions[index] = diveOptions;
+      updatedOptions[index] = filteredDives;
+      return updatedOptions;
+    });
+
+    // Set the selected dive index
+    setSelectedDiveIndex(index);
+  };
+
+  const handleDiveSelect = (option, index) => {
+    setDives((prevDives) => {
+      const updatedDives = [...prevDives];
+      updatedDives[index] = { ...updatedDives[index], ...option };
+      return updatedDives;
+    });
+    setDiveOptions((prevOptions) => {
+      const updatedOptions = [...prevOptions];
+      updatedOptions[index] = [];
       return updatedOptions;
     });
   };
-  
-  const handleDiveSelect = (dive, index) => {
-    // fill the rest of the fields with the selected dive's data
-    setDives(prevDives => {
-      const updatedDives = [...prevDives];
-      updatedDives[index] = { ...updatedDives[index], ...dive };
-      return updatedDives;
-    });
-    
-    // clear the dive options
-    setDiveOptions([]);
-  };
-  
+
   const handleDiveSheetSubmit = (e) => {
     e.preventDefault();
     console.log('Dive sheet submitted:', dives);
   };
-  
-  useEffect(() => {
-    const fetchDiveData = async () => {
-      console.log('All Dives:', diveData);
-      const response = await fetch('/api/dives');
-      const diveData = await response.json();
-      console.log('All Dives:', diveData);
-      // Update your state or perform other actions with the retrieved dive data
-    };
-  
-    fetchDiveData();
-  }, []);
-
 
   return (
     <>
-      <div className={styles.fullContainer}>
+      <div className={styles.fullContainer} ref={containerRef}>
         <div className={styles.titleContainer}>
           <label>Title:</label>
           <input
@@ -111,6 +144,7 @@ const NewDiveSheet = () => {
             src={divesheetbackground}
             className={styles.backgroundImage}
             id={styles.sheet}
+            alt="Dive Sheet Background"
           />
           <form className={styles.overlayForm} onSubmit={handleDiveSheetSubmit}>
             {dives.map((dive, index) => (
@@ -122,11 +156,15 @@ const NewDiveSheet = () => {
                     value={dive.diveNumber}
                     onChange={(e) => handleDiveChange(e, index, 'diveNumber')}
                   />
-                  {diveOptions[dive.diveNumber] && (
+                  {selectedDiveIndex === index && diveOptions[index] && diveOptions[index].length > 0 && (
                     <div className={styles.diveOptions}>
-                      {diveOptions[dive.diveNumber].map((option, i) => (
-                        <div key={i} onClick={() => handleDiveSelect(option, index)}>
-                          {option.diveNumber} - {option.dive}
+                      {diveOptions[index].map((option, i) => (
+                        <div
+                          key={i}
+                          onClick={() => handleDiveSelect(option, index)}
+                          className={styles.diveOption}
+                        >
+                          {option.diveNumber} - {option.dive} ({option.position} - {option.dd})
                         </div>
                       ))}
                     </div>
@@ -158,17 +196,12 @@ const NewDiveSheet = () => {
                 </div>
               </div>
             ))}
-            <button type="submit">Submit</button>
+            <button className={styles.submitButton} type="submit">Submit</button>
           </form>
-        </div>
-        <div className={styles.buttonContainer}>
-          <button className={styles.button}>Save</button>
-          <button className={styles.button}>Print</button>
-          <button className={styles.button}>Delete</button>
         </div>
       </div>
     </>
-  );  
+  );
 };
 
 export default NewDiveSheet;
