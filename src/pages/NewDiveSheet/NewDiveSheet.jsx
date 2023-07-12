@@ -22,21 +22,30 @@ const NewDiveSheet = () => {
   ];
 
   const containerRef = useRef(null);
+  const inputDiveContainerRefs = useRef([]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
-        setDiveOptions([]);
+      if (
+        selectedDiveIndex !== null && 
+        inputDiveContainerRefs.current[selectedDiveIndex] && 
+        !inputDiveContainerRefs.current[selectedDiveIndex].contains(event.target)
+      ) {
+        setDiveOptions((prevOptions) => {
+          const updatedOptions = [...prevOptions];
+          updatedOptions[selectedDiveIndex] = [];
+          return updatedOptions;
+        });
         setSelectedDiveIndex(null);
       }
     };
-
+  
     document.addEventListener('mousedown', handleOutsideClick);
-
+  
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, []);
+  }, [selectedDiveIndex]);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -169,7 +178,7 @@ const NewDiveSheet = () => {
           />
           <form className={styles.overlayForm} onSubmit={handleDiveSheetSubmit}>
             {dives.map((dive, index) => (
-              <div key={index} className={`diveInputContainer-dive-${index}`}>
+              <div key={index} className={`diveInputContainer-dive-${index}`} ref={el => inputDiveContainerRefs.current[index] = el}>
                 <div className={styles.divenumber}>
                   <input
                     type="text"
