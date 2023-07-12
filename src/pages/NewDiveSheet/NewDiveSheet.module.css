@@ -123,6 +123,8 @@
   border: 1px solid #ccc;
   z-index: 1;
   width: 300px;
+  max-height: 100px;
+  overflow-y: auto;
 }
 
 .diveOptions div {
@@ -138,4 +140,5 @@
   max-height: 100px;
   overflow-y: auto;
 }
+
 
