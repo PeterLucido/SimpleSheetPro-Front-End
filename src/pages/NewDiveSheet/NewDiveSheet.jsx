@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './NewDiveSheet.module.css';
 import divesheetbackground from '/src/divesheetbackground.png';
 
@@ -20,6 +20,23 @@ const NewDiveSheet = () => {
     { diveNumber: '103', dive: 'Forward 1 1/2 SS', position: 'B', dd: 1.7 },
     { diveNumber: '103', dive: 'Forward 1 1/2 SS', position: 'A', dd: 2.0 }
   ];
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setDiveOptions([]);
+        setSelectedDiveIndex(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -104,7 +121,7 @@ const NewDiveSheet = () => {
 
   return (
     <>
-      <div className={styles.fullContainer}>
+      <div className={styles.fullContainer} ref={containerRef}>
         <div className={styles.titleContainer}>
           <label>Title:</label>
           <input
