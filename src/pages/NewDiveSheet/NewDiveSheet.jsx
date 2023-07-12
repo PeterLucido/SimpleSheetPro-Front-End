@@ -10,15 +10,15 @@ const NewDiveSheet = () => {
   const [diveOptions, setDiveOptions] = useState([]);
 
   const diveData = [
-    { diveNumber: '101', dive: 'Forward Dive', position: 'C', dd: 1.2 },
-    { diveNumber: '101', dive: 'Forward Dive', position: 'B', dd: 1.3 },
-    { diveNumber: '101', dive: 'Forward Dive', position: 'A', dd: 1.4 },
-    { diveNumber: '102', dive: 'Forward 1 SS', position: 'C', dd: 1.4 },
-    { diveNumber: '102', dive: 'Forward 1 SS', position: 'B', dd: 1.5 },
-    { diveNumber: '102', dive: 'Forward 1 SS', position: 'A', dd: 1.6 },
-    { diveNumber: '103', dive: 'Forward 1 1/2 SS', position: 'C', dd: 1.6 },
-    { diveNumber: '103', dive: 'Forward 1 1/2 SS', position: 'B', dd: 1.7 },
-    { diveNumber: '103', dive: 'Forward 1 1/2 SS', position: 'A', dd: 2.0 }
+    { diveNumber: '101', dive: 'Forward Dive Tuck', position: 'C', dd: 1.2 },
+    { diveNumber: '101', dive: 'Forward Dive Pike', position: 'B', dd: 1.3 },
+    { diveNumber: '101', dive: 'Forward Dive Straight', position: 'A', dd: 1.4 },
+    { diveNumber: '102', dive: 'Forward 1 SS Tuck', position: 'C', dd: 1.4 },
+    { diveNumber: '102', dive: 'Forward 1 SS Pike', position: 'B', dd: 1.5 },
+    { diveNumber: '102', dive: 'Forward 1 SS Straight', position: 'A', dd: 1.6 },
+    { diveNumber: '103', dive: 'Forward 1 1/2 SS Tuck', position: 'C', dd: 1.6 },
+    { diveNumber: '103', dive: 'Forward 1 1/2 SS Pike', position: 'B', dd: 1.7 },
+    { diveNumber: '103', dive: 'Forward 1 1/2 SS Straight', position: 'A', dd: 2.0 }
   ];
 
   const containerRef = useRef(null);
@@ -53,8 +53,28 @@ const NewDiveSheet = () => {
     });
   };
 
+  const clearContainer = (index, fieldName, fieldValue) => {
+    setDives((prevDives) => {
+      const updatedDives = [...prevDives];
+      updatedDives[index] = { diveNumber: '', dive: '', position: '', dd: '' };
+      updatedDives[index][fieldName] = fieldValue;
+      return updatedDives;
+    });
+    setDiveOptions((prevOptions) => {
+      const updatedOptions = [...prevOptions];
+      updatedOptions[index] = [];
+      return updatedOptions;
+    });
+    setSelectedDiveIndex(null);
+  };
+  
   const handleDiveChange = (e, index, fieldName) => {
     const { value } = e.target;
+
+    if (value.length < (dives[index][fieldName] || '').length) {
+      clearContainer(index, fieldName, value);
+      return;
+    }
 
     // Update the dives state with the new value
     setDives((prevDives) => {
@@ -90,6 +110,7 @@ const NewDiveSheet = () => {
       );
     });
 
+    
     // Update the dive options state for the current index
     setDiveOptions((prevOptions) => {
       const updatedOptions = [...prevOptions];
