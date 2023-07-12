@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './NewDiveSheet.module.css';
 import divesheetbackground from '/src/divesheetbackground.png';
+import * as sheetService from '../../services/sheetService';
 
 const NewDiveSheet = () => {
   const [title, setTitle] = useState('');
@@ -8,18 +9,17 @@ const NewDiveSheet = () => {
   const [dives, setDives] = useState(Array(6).fill({ diveNumber: '', dive: '', position: '', dd: '' }));
   const [selectedDiveIndex, setSelectedDiveIndex] = useState(null);
   const [diveOptions, setDiveOptions] = useState([]);
+  const [diveData, setDiveData] = useState([]);
 
-  const diveData = [
-    { diveNumber: '101', dive: 'Forward Dive Tuck', position: 'C', dd: 1.2 },
-    { diveNumber: '101', dive: 'Forward Dive Pike', position: 'B', dd: 1.3 },
-    { diveNumber: '101', dive: 'Forward Dive Straight', position: 'A', dd: 1.4 },
-    { diveNumber: '102', dive: 'Forward 1 SS Tuck', position: 'C', dd: 1.4 },
-    { diveNumber: '102', dive: 'Forward 1 SS Pike', position: 'B', dd: 1.5 },
-    { diveNumber: '102', dive: 'Forward 1 SS Straight', position: 'A', dd: 1.6 },
-    { diveNumber: '103', dive: 'Forward 1 1/2 SS Tuck', position: 'C', dd: 1.6 },
-    { diveNumber: '103', dive: 'Forward 1 1/2 SS Pike', position: 'B', dd: 1.7 },
-    { diveNumber: '103', dive: 'Forward 1 1/2 SS Straight', position: 'A', dd: 2.0 }
-  ];
+  useEffect(() => {
+    const fetchDiveData = async () => {
+      const data = await sheetService.index();
+      setDiveData(data);
+    };
+    fetchDiveData();
+  }, []);
+
+  console.log(diveData);
 
   const containerRef = useRef(null);
   const inputDiveContainerRefs = useRef([]);
