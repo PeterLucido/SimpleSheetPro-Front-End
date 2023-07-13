@@ -165,6 +165,20 @@ const NewDiveSheet = () => {
                     </label>
                 </div>
                 <div className={styles.container}>
+                <div className={styles.infoContainer}>
+                  <div>
+                    <h1>Name</h1>
+                  </div>
+                  <div>
+                    <h1>School</h1>
+                  </div>
+                  <div>
+                    <h1>Grade</h1>
+                  </div>
+                  <div>
+                    <h1>Gender</h1>
+                  </div>
+                </div>
                     <img
                         src={divesheetbackground}
                         className={styles.backgroundImage}

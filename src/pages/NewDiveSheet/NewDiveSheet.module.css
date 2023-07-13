@@ -141,8 +141,12 @@
   overflow-y: auto;
 }
 
-
 .submitButton {
   position: relative;
   top: 200px;
+}
+
+.infoContainer {
+  display: flex;
+  color: black;
 }
