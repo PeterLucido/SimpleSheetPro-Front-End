@@ -76,63 +76,67 @@
 .diveContainer0 {
   display: flex;
   position: relative;
-  top: 6px;
+  top: 7px;
 }
 
 .diveContainer1 {
   display: flex;
   position: relative;
-  top: 9.5px;
+  top: 10.5px;
 }
 
 .diveContainer2 {
   display: flex;
   position: relative;
-  top: 13px;
+  top: 14px;
 }
 
 .diveContainer3 {
   display: flex;
   position: relative;
-  top: 17px;
+  top: 18px;
 }
 
 .diveContainer4 {
   display: flex;
   position: relative;
-  top: 22px;
+  top: 23px;
 }
 
 .diveContainer5 {
   display: flex;
   position: relative;
-  top: 41px;
+  top: 42px;
 }
 
 .diveContainer6 {
   display: flex;
   position: relative;
-  top: 10px;
+  top: 44px;
 }
 
 .diveContainer7 {
   display: flex;
   position: relative;
+  top: 48px;
 }
 
 .diveContainer8 {
   display: flex;
   position: relative;
+  top: 66px;
 }
 
 .diveContainer9 {
   display: flex;
   position: relative;
+  top: 68px;
 }
 
 .diveContainer10 {
   display: flex;
   position: relative;
+  top: 69px;
 }
 
 .diveOptionsContainer {
