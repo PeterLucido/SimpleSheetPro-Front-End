@@ -22,7 +22,11 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-.diveInputContainer-dive-0 {
+.diveContainer {
+  display: flex;
+}
+
+.diveContainer-0 {
   display: flex !important;
   flex-direction: row !important;
   width: 800px !important;

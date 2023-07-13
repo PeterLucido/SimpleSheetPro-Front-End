@@ -1,0 +1,158 @@
+.diveContainer {
+  display: flex;
+  position: relative;
+}
+
+.diveNumber {
+  display: flex;
+  width: 35px;
+}
+
+.diveNumber input[type="text"] {
+  width: 35px;
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  height: 22px;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.dive {
+  display: flex;
+  position: relative;
+  width: 222px;
+  left: 5px;
+}
+
+.dive input[type="text"] {
+  width: 240px;
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.divePosition {
+  display: flex;
+  position: relative;
+  width: 35px;
+  left: 9px;
+}
+
+.divePosition input[type="text"] {
+  width: 35px;
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.diveDD {
+  display: flex;
+  position: relative;
+  width: 28px;
+  left: 351px;
+}
+
+.diveDD input[type="text"] {
+  width: 28px;
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.diveContainer0 {
+  display: flex;
+  position: relative;
+  top: 6px;
+}
+
+.diveContainer1 {
+  display: flex;
+  position: relative;
+  top: 9.5px;
+}
+
+.diveContainer2 {
+  display: flex;
+  position: relative;
+  top: 13px;
+}
+
+.diveContainer3 {
+  display: flex;
+  position: relative;
+  top: 17px;
+}
+
+.diveContainer4 {
+  display: flex;
+  position: relative;
+  top: 22px;
+}
+
+.diveContainer5 {
+  display: flex;
+  position: relative;
+  top: 41px;
+}
+
+.diveContainer6 {
+  display: flex;
+  position: relative;
+  top: 10px;
+}
+
+.diveContainer7 {
+  display: flex;
+  position: relative;
+}
+
+.diveContainer8 {
+  display: flex;
+  position: relative;
+}
+
+.diveContainer9 {
+  display: flex;
+  position: relative;
+}
+
+.diveContainer10 {
+  display: flex;
+  position: relative;
+}
+
+.diveOptionsContainer {
+  position: absolute;
+  color: black;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 1;
+  width: 240px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.diveOptionsContainer div {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.diveOptionsContainer div:hover {
+  background-color: #f0f0f0;
+}
