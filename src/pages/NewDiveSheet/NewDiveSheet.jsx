@@ -91,71 +91,10 @@ const NewDiveSheet = () => {
 
   const handleDiveChange = (e, index, fieldName) => {
     const { value } = e.target;
-
-    if (value.length < (dives[index][fieldName] || '').length) {
-      // Clear all other fields within the same dive container
-      setDives((prevDives) => {
-        const updatedDives = [...prevDives];
-        updatedDives[index] = { ...updatedDives[index], [fieldName]: value };
-
-        // Clear other fields
-        updatedDives[index] = Object.keys(updatedDives[index]).reduce((obj, key) => {
-          if (key !== fieldName) {
-            obj[key] = '';
-          }
-          return obj;
-        }, updatedDives[index]);
-
-        return updatedDives;
-      });
-
-      // Fetch dive options based on the updated values
-      const { diveNumber, dive, position, dd } = {
-        ...dives[index],
-        [fieldName]: value,
-      };
-
-      // Filter diveData based on diveNumber, dive, position, and dd
-      const filteredDives = diveData.filter((item) => {
-        const { diveNumber: itemDiveNumber, dive: itemDive, position: itemPosition, dd: itemDD } = item;
-        return (
-          (!diveNumber || itemDiveNumber.includes(diveNumber)) &&
-          (!dive || itemDive.toLowerCase().includes(dive.toLowerCase())) &&
-          (!position || itemPosition.toLowerCase() === position.toLowerCase()) &&
-          (!dd || itemDD === dd)
-        );
-      });
-
-      console.log(filteredDives);
-
-      // Update the dive options state for the current index
-      setDiveOptions((prevOptions) => {
-        const updatedOptions = [...prevOptions];
-        updatedOptions[index] = filteredDives;
-        return updatedOptions;
-      });
-
-      // Set the selected dive index
-      setSelectedDiveIndex(index);
-
-      return;
-    }
-
-    // Update the dives state with the new value
-    setDives((prevDives) => {
-      const updatedDives = [...prevDives];
-      updatedDives[index] = { ...updatedDives[index], [fieldName]: value };
-      return updatedDives;
-    });
-
-    // Fetch dive options based on the updated values
-    const { diveNumber, dive, position, dd } = {
-      ...dives[index],
-      [fieldName]: value,
-    };
-
-    // Clear the suggestions if the field is empty
+  
+    // If the field is empty, clear the suggestions
     if (!value) {
+      clearContainer(index, fieldName, value);
       setDiveOptions((prevOptions) => {
         const updatedOptions = [...prevOptions];
         updatedOptions[index] = [];
@@ -163,7 +102,39 @@ const NewDiveSheet = () => {
       });
       return;
     }
-
+  
+    // If the value length is less than the previous value length, this means user is deleting characters
+    if (value.length < (dives[index][fieldName] || '').length) {
+      // Clear all other fields within the same dive container
+      setDives((prevDives) => {
+        const updatedDives = [...prevDives];
+        updatedDives[index] = { ...updatedDives[index], [fieldName]: value };
+  
+        // Clear other fields
+        updatedDives[index] = Object.keys(updatedDives[index]).reduce((obj, key) => {
+          if (key !== fieldName) {
+            obj[key] = '';
+          }
+          return obj;
+        }, updatedDives[index]);
+  
+        return updatedDives;
+      });
+    } else {
+      // If value length is equal or greater, update the corresponding field
+      setDives((prevDives) => {
+        const updatedDives = [...prevDives];
+        updatedDives[index] = { ...updatedDives[index], [fieldName]: value };
+        return updatedDives;
+      });
+    }
+  
+    // Fetch dive options based on the updated values
+    const { diveNumber, dive, position, dd } = {
+      ...dives[index],
+      [fieldName]: value,
+    };
+  
     // Filter diveData based on diveNumber, dive, position, and dd
     const filteredDives = diveData.filter((item) => {
       const { diveNumber: itemDiveNumber, dive: itemDive, position: itemPosition, dd: itemDD } = item;
@@ -175,18 +146,18 @@ const NewDiveSheet = () => {
       );
     });
 
-    console.log(filteredDives);
-
+    console.log('filteredDives:', filteredDives);
+  
     // Update the dive options state for the current index
     setDiveOptions((prevOptions) => {
       const updatedOptions = [...prevOptions];
       updatedOptions[index] = filteredDives;
       return updatedOptions;
     });
-
+  
     // Set the selected dive index
     setSelectedDiveIndex(index);
-  };
+  };  
 
   const handleDiveSelect = (option, index) => {
     setDives((prevDives) => {
