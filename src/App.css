@@ -80,18 +80,27 @@ nav > ul {
 }
 
 .Save {
-  color: green;
+  color: white;
   position: relative;
   right: 50px;
   font-size: 20px;
+  background-color: #1a9a1a;
+  border-radius: 5px;
+  border: none;
 }
 .Print {
-  color: blue;
+  color: white;
+  background-color: blue;
   font-size: 20px;
+  border-radius: 5px;
+  border: none;
 }
 .Delete {
-  color: red;
+  color: white;
+  background-color: red;
   position: relative;
   left: 50px;
   font-size: 20px;
+  border-radius: 5px;
+  border: none;
 }
