@@ -22,76 +22,6 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-.diveContainer {
-  display: flex;
-}
-
-.diveContainer-0 {
-  display: flex !important;
-  flex-direction: row !important;
-  width: 800px !important;
-  color: blueviolet !important;
-  position: relative;
-  top: 3.4px;
-}
-.diveInputContainer-dive-1 {
-  display: flex !important;
-  flex-direction: row !important;
-  position: relative;
-  top: 5.7px;
-}
-.diveInputContainer-dive-2 {
-  display: flex !important;
-  flex-direction: row !important;
-  position: relative;
-  top: 8.4px;
-}
-.diveInputContainer-dive-3 {
-  display: flex !important;
-  flex-direction: row !important;
-  position: relative;
-  top: 11.2px;
-}
-.diveInputContainer-dive-4 {
-  display: flex !important;
-  flex-direction: row !important;
-  position: relative;
-  top: 14.3px;
-}
-.diveInputContainer-dive-5 {
-  display: flex !important;
-  position: relative;
-  top: 33.1px;
-}
-.diveInputContainer-dive-6 {
-  display: flex !important;
-  background-color: black !important;
-  position: relative;
-  top: 50px;
-}
-.diveInputContainer-dive-7 {
-  display: flex !important;
-  background-color: black !important;
-  position: relative;
-  top: 50px;
-}
-.diveInputContainer-dive-8 {
-  display: flex !important;
-  background-color: black !important;
-}
-.diveInputContainer-dive-9 {
-  display: flex !important;
-  background-color: black !important;
-}
-.diveInputContainer-dive-10 {
-  display: flex !important;
-  background-color: black !important;
-}
-.diveInputContainer-dive-11 {
-  display: flex !important;
-  background-color: black !important;
-}
-
 a,
 a:visited {
   color: #00d8ff
@@ -103,6 +33,7 @@ nav > ul {
 }
 
 .left-sidebar {
+  display: flex;
   position: fixed;
   top: 140px;
   left: 40px;
@@ -111,7 +42,11 @@ nav > ul {
   height: 700px;
   background-color: white;
   border-radius: 10px;
+  flex-direction: column;
+    align-items: center;
 }
+
+
 
 .right-sidebar {
   position: fixed;
@@ -142,4 +77,21 @@ nav > ul {
   color: rgb(0, 187, 255);
   font-size: 30px; 
   margin: 0; 
+}
+
+.Save {
+  color: green;
+  position: relative;
+  right: 50px;
+  font-size: 20px;
+}
+.Print {
+  color: blue;
+  font-size: 20px;
+}
+.Delete {
+  color: red;
+  position: relative;
+  left: 50px;
+  font-size: 20px;
 }
