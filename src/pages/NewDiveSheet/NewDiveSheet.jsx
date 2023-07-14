@@ -5,7 +5,7 @@ import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDive
 import divesheetbackground from '/src/divesheetbackground.png';
 import * as sheetService from '../../services/sheetService';
 
-const NewDiveSheet = () => {
+const NewDiveSheet = ({profile}) => {
     const [title, setTitle] = useState('');
     const [isElevenDive, setIsElevenDive] = useState(false);
     const [dives, setDives] = useState(Array(6).fill({ diveNumber: '', dive: '', position: '', dd: '' }));
@@ -14,6 +14,7 @@ const NewDiveSheet = () => {
     const [diveData, setDiveData] = useState([]);
     const containerRef = useRef(null);
     const inputDiveContainerRefs = useRef([]);
+    console.log(profile);
 
     useEffect(() => {
         const fetchDiveData = async () => {
@@ -166,17 +167,18 @@ const NewDiveSheet = () => {
                 </div>
                 <div className={styles.container}>
                 <div className={styles.infoContainer}>
-                  <div>
-                    <h1>Name</h1>
+                  <div className={styles.Name}>
+                    <h1>{profile && profile.firstName} {profile && profile.lastName}</h1>
                   </div>
-                  <div>
+                  <div className={styles.School}>
                     <h1>School</h1>
                   </div>
-                  <div>
-                    <h1>Grade</h1>
+                  <div className={styles.Grade}>
+                    <h1>{profile && profile.grade}</h1>
                   </div>
-                  <div>
-                    <h1>Gender</h1>
+                  <div className={styles.Gender}>
+                    <div className={styles.genderBoy}>{profile && profile.gender === 'Male' ? 'x' : null}</div>
+                    <div className={styles.genderGirl}>{profile && profile.gender === 'Female' ? 'x' : null}</div>
                   </div>
                 </div>
                     <img
@@ -205,6 +207,11 @@ const NewDiveSheet = () => {
                             />}
                         <button className={styles.submitButton} type="submit">Submit</button>
                     </form>
+                </div>
+                <div className={styles.btnContainer}>
+                <button className='Save'>Save</button>
+                <button className='Print'>Print</button>
+                <button className='Delete'>Delete</button>
                 </div>
             </div>
         </>
