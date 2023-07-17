@@ -4,8 +4,6 @@ import pfp from '/src/pfp.png';
 import Styles from './LeftSideBar.module.css';
 
 const LeftSideBar = ({ user, profile, handleLogout }) => {
-  console.log('user:', user); // Log the user prop to check if it exists
-  console.log('profile:', profile); // Log the profile prop to check if it exists
 
   const profileImg = profile && profile.photo ? profile.photo : pfp;
 
