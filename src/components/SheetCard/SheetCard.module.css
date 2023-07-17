@@ -1,0 +1,13 @@
+.SheetCard {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  text-align: center;
+  width: 250px;
+  height: 250px;
+}
+
+@media (max-width: 768px) {
+  .SheetCard {
+    flex: 0 0 100%; /* One box per row on smaller screens */
+  }
+}

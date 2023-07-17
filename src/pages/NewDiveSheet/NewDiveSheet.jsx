@@ -4,6 +4,8 @@ import SixDiveComponent from '../../components/SixDiveComponent/SixDiveComponent
 import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDiveComponent';
 import divesheetbackground from '/src/divesheetbackground.png';
 import * as sheetService from '../../services/sheetService';
+// import * as diveService from '../../services/diveService';
+import { getDives } from '../../services/diveService';
 
 const NewDiveSheet = ({profile}) => {
     const [title, setTitle] = useState('');
@@ -15,14 +17,21 @@ const NewDiveSheet = ({profile}) => {
     const containerRef = useRef(null);
     const inputDiveContainerRefs = useRef([]);
     console.log(profile);
+    console.log(diveData);
 
     useEffect(() => {
-        const fetchDiveData = async () => {
-            const data = await sheetService.index();
-            setDiveData(data);
-        };
-        fetchDiveData();
+      const fetchData = async () => {
+        try {
+          const diveData = await getDives();
+          setDiveData(diveData);
+        } catch (error) {
+          // Handle error retrieving dive data
+        }
+      };
+  
+      fetchData();
     }, []);
+    
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -140,10 +149,25 @@ const NewDiveSheet = ({profile}) => {
         setSelectedDiveIndex(null);
     };
 
-    const handleDiveSheetSubmit = (e) => {
-        e.preventDefault();
-        console.log('Dive sheet submitted:', dives);
+    const handleDiveSheetSubmit = async (e) => {
+      e.preventDefault();
+    
+      try {
+        const newDiveSheet = {
+          title: title,
+          dives: dives,
+          is11Dive: isElevenDive,
+        };
+    
+        const createdDiveSheet = await sheetService.createDiveSheet(profile, newDiveSheet);
+        console.log('Dive sheet saved:', createdDiveSheet);
+        // Handle successful dive sheet creation, such as showing a success message.
+      } catch (error) {
+        console.error('Error creating dive sheet:', error);
+        // Handle error during dive sheet creation, such as displaying an error message.
+      }
     };
+    
 
     return (
         <>
@@ -205,11 +229,12 @@ const NewDiveSheet = ({profile}) => {
                                 diveOptions={diveOptions}
                                 inputRef={(index) => (el) => (inputDiveContainerRefs.current[index] = el)}
                             />}
-                        <button className={styles.submitButton} type="submit">Submit</button>
                     </form>
                 </div>
                 <div className={styles.btnContainer}>
-                <button className='Save'>Save</button>
+                <button className="Save" type="submit" onClick={handleDiveSheetSubmit}>
+                  Save
+                </button>
                 <button className='Print'>Print</button>
                 <button className='Delete'>Delete</button>
                 </div>
