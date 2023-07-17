@@ -1,3 +1,4 @@
+// Dive.jsx
 import React, { useEffect, useRef } from 'react';
 import styles from './Dive.module.css';
 
@@ -8,12 +9,16 @@ const Dive = ({
   index,
   selectedDiveIndex,
   diveOptions,
+  editMode,
 }) => {
-  const inputRef = useRef(null);
+  const diveNumberInputRef = useRef(null);
+  const diveInputRef = useRef(null);
+  const positionInputRef = useRef(null);
+  const ddInputRef = useRef(null);
 
   useEffect(() => {
-    if (selectedDiveIndex === index && inputRef.current) {
-      inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (selectedDiveIndex === index && diveNumberInputRef.current) {
+      diveNumberInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [selectedDiveIndex, index]);
 
@@ -22,14 +27,18 @@ const Dive = ({
     className = styles[`diveContainer${index}`];
   }
 
+  const readOnly = !editMode; // Invert createMode to determine the readOnly state
+
   return (
-    <div className={className} ref={inputRef}>
+    <div className={className}>
       <div className={styles.diveNumber}>
         <input
           type="text"
           value={dive.diveNumber}
           onChange={(e) => handleDiveChange(e, index, 'diveNumber')}
           className={styles.input}
+          ref={diveNumberInputRef}
+          readOnly={readOnly}
         />
         {selectedDiveIndex === index && diveOptions.length > 0 && (
           <div className={styles.diveOptionsContainer}>
@@ -47,6 +56,8 @@ const Dive = ({
           value={dive.dive}
           onChange={(e) => handleDiveChange(e, index, 'dive')}
           className={styles.input}
+          ref={diveInputRef}
+          readOnly={readOnly}
         />
       </div>
       <div className={styles.divePosition}>
@@ -55,6 +66,8 @@ const Dive = ({
           value={dive.position}
           onChange={(e) => handleDiveChange(e, index, 'position')}
           className={styles.input}
+          ref={positionInputRef}
+          readOnly={readOnly}
         />
       </div>
       <div className={styles.diveDD}>
@@ -63,6 +76,8 @@ const Dive = ({
           value={dive.dd}
           onChange={(e) => handleDiveChange(e, index, 'dd')}
           className={styles.input}
+          ref={ddInputRef}
+          readOnly={readOnly}
         />
       </div>
     </div>

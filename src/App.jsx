@@ -130,7 +130,7 @@ function App() {
           } 
         />
         <Route 
-          path="/divesheets:diveSheetId" 
+          path="/divesheets/:diveSheetId" 
           element={
             <ProtectedRoute user={user} profile={profile}>
               <DiveSheetDetails 

@@ -88,6 +88,15 @@ nav > ul {
   border-radius: 5px;
   border: none;
 }
+.Edit {
+  color: white;
+  position: relative;
+  right: 50px;
+  font-size: 20px;
+  background-color: #1a9a1a;
+  border-radius: 5px;
+  border: none;
+}
 .Print {
   color: white;
   background-color: blue;

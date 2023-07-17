@@ -160,3 +160,9 @@
 .diveOptionsContainer div:hover {
   background-color: #f0f0f0;
 }
+
+/* .inputReadOnly {
+  cursor: none;
+  user-select: none;
+  pointer-events: none;
+} */

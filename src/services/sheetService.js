@@ -35,5 +35,21 @@ async function create(diveSheetFormData) {
   }
 }
 
-export { index, create };
+async function show(diveSheetId) {
+  try {
+    const res = await fetch(`${BASE_URL}/${diveSheetId}`, {
+      headers: {'Authorization': `Bearer ${tokenService.getToken()}`}
+    })
+    console.log(diveSheetId)
+    return res.json()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export { 
+  index, 
+  create,
+  show,
+};
 
