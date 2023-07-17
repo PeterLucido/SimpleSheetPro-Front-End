@@ -159,14 +159,15 @@ const NewDiveSheet = ({profile}) => {
           is11Dive: isElevenDive,
         };
     
-        const createdDiveSheet = await sheetService.createDiveSheet(profile, newDiveSheet);
-        console.log('Dive sheet saved:', createdDiveSheet);
+        const create = await sheetService.create(newDiveSheet, profile);
+        console.log('Dive sheet saved:', create);
         // Handle successful dive sheet creation, such as showing a success message.
       } catch (error) {
         console.error('Error creating dive sheet:', error);
         // Handle error during dive sheet creation, such as displaying an error message.
       }
     };
+    
     
 
     return (

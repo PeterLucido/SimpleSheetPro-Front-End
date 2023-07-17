@@ -19,27 +19,21 @@ async function index() {
 }
 
 
+async function create(diveSheetFormData) {
+  try{
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${tokenService.getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(diveSheetFormData)
+    })
+    return res.json()
+  } catch (err) {
+    console.log(err)
+  }
+}
 
-// async function createDiveSheet(profileId, diveSheet) {
-//   try {
-//     const response = await fetch(`/api/diveSheets/${profileId}`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(diveSheet),
-//     });
+export { index, create };
 
-//     if (!response.ok) {
-//       throw new Error('Failed to create dive sheet');
-//     }
-
-//     return await response.json();
-//   } catch (error) {
-//     console.error('Error creating dive sheet:', error);
-//     throw new Error(`Error creating dive sheet: ${error.message}`);
-//   }
-// }
-
-// export { index, createDiveSheet };
-export { index };

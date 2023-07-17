@@ -19,7 +19,7 @@ const LeftSideBar = ({ user, profile, handleLogout }) => {
         <ul >
           <li><NavLink to="/profiles">Profiles</NavLink></li>
           <li><NavLink to="/DiveSheets">Dive Sheets</NavLink></li>
-          <li><NavLink to="/NewDiveSheet">New Dive Sheet</NavLink></li>
+          <li><NavLink to="/DiveSheets/New">New Dive Sheet</NavLink></li>
           <li><NavLink to="" onClick={handleLogout}>LOG OUT</NavLink></li>
           <li><NavLink to="/auth/change-password">Change Password</NavLink></li>
         </ul>
