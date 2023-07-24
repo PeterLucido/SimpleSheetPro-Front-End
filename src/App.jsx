@@ -70,11 +70,22 @@ function App() {
     navigate('/divesheets')
   }
 
-  const handleDeleteSheet = async (sheetId) => {
-    const deletedSheet = await sheetService.deleteSheet(sheetId)
-    setDiveSheets(diveSheets.filter(sheet => sheet._id !== deletedSheet._id))
-    navigate('/divesheets')
-  }  
+  const handleDeleteSheet = async (diveSheetId) => {
+    try {
+      // Call the deleteSheet function from the sheetService module
+      await sheetService.deleteSheet(diveSheetId);
+      // Update the diveSheets state to remove the deleted sheet
+      setDiveSheets((prevDiveSheets) =>
+        prevDiveSheets.filter((sheet) => sheet._id !== diveSheetId)
+      );
+      // Navigate to the diveSheets page or any other desired route
+      navigate('/divesheets');
+    } catch (error) {
+      console.error('Error deleting dive sheet:', error);
+      // Handle the error, show a message, or redirect the user if needed
+    }
+  }
+  
 
   return (
     <>

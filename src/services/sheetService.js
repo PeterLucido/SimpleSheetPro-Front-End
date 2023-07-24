@@ -47,9 +47,40 @@ async function show(diveSheetId) {
   }
 }
 
+async function update(diveSheetFormData) {
+  try {
+    const res = await fetch(`${BASE_URL}/${diveSheetFormData._id}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${tokenService.getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(diveSheetFormData)
+    })
+    return res.json()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function deleteSheet(diveSheetId) {
+  try {
+    const res = await fetch(`${BASE_URL}/${diveSheetId}`, {
+      method: 'DELETE',
+      headers: {'Authorization': `Bearer ${tokenService.getToken()}`}
+    })
+    return res.json()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
 export { 
   index, 
   create,
   show,
-};
+  update,
+  deleteSheet
+}
 

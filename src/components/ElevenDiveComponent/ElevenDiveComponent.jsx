@@ -1,12 +1,9 @@
 import React from 'react';
-import Dive from '../Dive/Dive.jsx';
+import Dive from '../Dive/Dive';
 import { useRef } from 'react';
 
-function ElevenDiveComponent({ dives, handleDiveChange, handleDiveSelect, selectedDiveIndex, diveOptions, editMode }) {
-  const diveNumberInputRefs = useRef([]);
-  const diveInputRefs = useRef([]);
-  const positionInputRefs = useRef([]);
-  const ddInputRefs = useRef([]);
+const ElevenDiveComponent = ({ dives, handleDiveChange, handleDiveSelect, selectedDiveIndex, diveOptions }) => {
+  const inputRefs = useRef([]);
 
   return (
     <div className="elevenDiveForm">
@@ -19,15 +16,11 @@ function ElevenDiveComponent({ dives, handleDiveChange, handleDiveSelect, select
           index={index}
           selectedDiveIndex={selectedDiveIndex}
           diveOptions={diveOptions[index] || []}
-          diveNumberInputRef={(el) => (diveNumberInputRefs.current[index] = el)}
-          diveInputRef={(el) => (diveInputRefs.current[index] = el)}
-          positionInputRef={(el) => (positionInputRefs.current[index] = el)}
-          ddInputRef={(el) => (ddInputRefs.current[index] = el)}
-          editMode={editMode}
+          diveInputRef={(el) => (inputRefs.current[index] = el)}
         />
       ))}
     </div>
   );
-}
+};
 
 export default ElevenDiveComponent;

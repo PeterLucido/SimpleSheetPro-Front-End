@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './NewDiveSheet.module.css';
 import SixDiveComponent from '../../components/SixDiveComponent/SixDiveComponent';
 import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDiveComponent';
@@ -15,6 +16,7 @@ const NewDiveSheet = ({ profile }) => {
   const [diveData, setDiveData] = useState([]);
   const containerRef = useRef(null);
   const inputDiveContainerRefs = useRef([]);
+  const navigate = useNavigate();
   console.log(profile);
   console.log(diveData);
 
@@ -149,17 +151,18 @@ const NewDiveSheet = ({ profile }) => {
 
   const handleDiveSheetSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const newDiveSheet = {
         title: title,
         dives: dives,
         is11Dive: isElevenDive,
       };
-
+  
       const create = await sheetService.create(newDiveSheet, profile);
       console.log('Dive sheet saved:', create);
-      // Handle successful dive sheet creation, such as showing a success message.
+      // Redirect to the dive sheet list
+      navigate('/diveSheets'); // Replace '/dive-sheet-list' with the actual URL of your dive sheet list page
     } catch (error) {
       console.error('Error creating dive sheet:', error);
       // Handle error during dive sheet creation, such as displaying an error message.
@@ -171,9 +174,9 @@ const NewDiveSheet = ({ profile }) => {
       <div className={styles.fullContainer} ref={containerRef}>
         <div className={styles.titleContainer}>
           <label>Title:</label>
-          <input type="text" placeholder="Title" value={title} onChange={handleTitleChange} readOnly={false} />
+          <input type="text" placeholder="Title" value={title} onChange={handleTitleChange} />
           <label>
-            <input type="checkbox" checked={isElevenDive} onChange={handleCheckboxChange} disabled={false} />
+            <input type="checkbox" checked={isElevenDive} onChange={handleCheckboxChange} />
             Is this sheet 11 dives?
           </label>
         </div>
@@ -207,7 +210,7 @@ const NewDiveSheet = ({ profile }) => {
                 handleDiveSelect={handleDiveSelect}
                 selectedDiveIndex={selectedDiveIndex}
                 diveOptions={diveOptions}
-                editMode={true}
+                // editMode={true}
               />
             ) : (
               <SixDiveComponent
@@ -216,7 +219,7 @@ const NewDiveSheet = ({ profile }) => {
                 handleDiveSelect={handleDiveSelect}
                 selectedDiveIndex={selectedDiveIndex}
                 diveOptions={diveOptions}
-                editMode={true}
+                // editMode={true}
               />
             )}
           </form>

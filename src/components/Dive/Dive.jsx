@@ -9,36 +9,27 @@ const Dive = ({
   index,
   selectedDiveIndex,
   diveOptions,
-  editMode,
+  diveInputRef,
+  // editMode,
 }) => {
-  const diveNumberInputRef = useRef(null);
-  const diveInputRef = useRef(null);
-  const positionInputRef = useRef(null);
-  const ddInputRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    if (selectedDiveIndex === index && diveNumberInputRef.current) {
-      diveNumberInputRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (selectedDiveIndex === index && inputRef.current) {
+      inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [selectedDiveIndex, index]);
 
-  let className = styles.diveContainer;
-  if (index >= 0 && index <= 10) {
-    className = styles[`diveContainer${index}`];
-  }
-
-  const readOnly = !editMode; // Invert createMode to determine the readOnly state
-
   return (
-    <div className={className}>
+    <div className={styles.diveContainer} ref={inputRef}>
       <div className={styles.diveNumber}>
         <input
           type="text"
           value={dive.diveNumber}
-          onChange={(e) => handleDiveChange(e, index, 'diveNumber')}
+          onChange={(e) => handleDiveChange(e, index, 'diveNumber')} // <-- Fix the comment syntax here
           className={styles.input}
-          ref={diveNumberInputRef}
-          readOnly={readOnly}
+          ref={inputRef}
+          // removed readOnly attribute
         />
         {selectedDiveIndex === index && diveOptions.length > 0 && (
           <div className={styles.diveOptionsContainer}>
@@ -54,30 +45,30 @@ const Dive = ({
         <input
           type="text"
           value={dive.dive}
-          onChange={(e) => handleDiveChange(e, index, 'dive')}
+          onChange={(e) => handleDiveChange(e, index, 'dive')} // <-- Fix the comment syntax here
           className={styles.input}
           ref={diveInputRef}
-          readOnly={readOnly}
+          // removed readOnly attribute
         />
       </div>
       <div className={styles.divePosition}>
         <input
           type="text"
           value={dive.position}
-          onChange={(e) => handleDiveChange(e, index, 'position')}
+          onChange={(e) => handleDiveChange(e, index, 'position')} // <-- Fix the comment syntax here
           className={styles.input}
-          ref={positionInputRef}
-          readOnly={readOnly}
+          ref={diveInputRef}
+          // removed readOnly attribute
         />
       </div>
       <div className={styles.diveDD}>
         <input
           type="text"
           value={dive.dd}
-          onChange={(e) => handleDiveChange(e, index, 'dd')}
+          onChange={(e) => handleDiveChange(e, index, 'dd')} // <-- Fix the comment syntax here
           className={styles.input}
-          ref={ddInputRef}
-          readOnly={readOnly}
+          ref={diveInputRef}
+          // removed readOnly attribute
         />
       </div>
     </div>
