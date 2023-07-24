@@ -21,7 +21,7 @@ const Dive = ({
   }, [selectedDiveIndex, index]);
 
   return (
-    <div className={styles.diveContainer} ref={inputRef}>
+    <div className={`${styles.diveContainer} ${styles[`diveContainer${index + 1}`]}`} ref={inputRef}>
       <div className={styles.diveNumber}>
         <input
           type="text"
