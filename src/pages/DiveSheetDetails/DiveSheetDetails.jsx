@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './DiveSheetDetails.module.css';
 import divesheetbackground from '/src/divesheetbackground.png';
 import * as sheetService from '../../services/sheetService';
@@ -17,7 +17,8 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
   const inputDiveContainerRefs = useRef([]);
   const { diveSheetId } = useParams();
   const [diveData, setDiveData] = useState([]);
-  const navigate = useNavigate();
+  console.log(diveData)
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDiveSheet = async () => {
@@ -209,6 +210,9 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
                 diveOptions={[]}
               />
             )}
+          </form>
+        </div>
+            <div className={styles.btnContainer}>
             <button className="Save" type="submit">
               Save
             </button>
@@ -216,8 +220,7 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
             <button className="Delete" onClick={() => handleDeleteSheet(diveSheet._id)}>
               Delete
             </button>
-          </form>
-        </div>
+            </div>
       </div>
     </>
   );

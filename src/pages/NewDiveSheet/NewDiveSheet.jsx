@@ -226,7 +226,7 @@ const NewDiveSheet = ({ profile }) => {
         </div>
         <div className={styles.btnContainer}>
           <button className="Save" type="submit" onClick={handleDiveSheetSubmit} disabled={false}>
-            Save
+            Submit
           </button>
           <button className="Print">Print</button>
           <button className="Delete">Delete</button>

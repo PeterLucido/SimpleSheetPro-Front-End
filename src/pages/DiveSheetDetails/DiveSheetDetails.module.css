@@ -218,6 +218,7 @@
   display: flex;
   position: relative;
   top: 20px;
+  justify-content: center;
 }
 
 /* .readOnly {
