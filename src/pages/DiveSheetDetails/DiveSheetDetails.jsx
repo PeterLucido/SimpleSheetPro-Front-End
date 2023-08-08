@@ -9,16 +9,15 @@ import { getDives } from '../../services/diveService';
 
 const DiveSheetDetails = ({ handleDeleteSheet }) => {
   const [diveSheet, setDiveSheet] = useState(null);
+  const [diveOptions, setDiveOptions] = useState([]);
   const [editedDiveSheet, setEditedDiveSheet] = useState(null);
-  const [editedTitle, setEditedTitle] = useState('');
+  const [title, setTitle] = useState('');
   const [editedIsElevenDive, setEditedIsElevenDive] = useState(false);
-  const [editedDives, setEditedDives] = useState([]);
+  const [dives, setDives] = useState([]);
   const [selectedDiveIndex, setSelectedDiveIndex] = useState(null);
   const inputDiveContainerRefs = useRef([]);
   const { diveSheetId } = useParams();
   const [diveData, setDiveData] = useState([]);
-  console.log(diveData)
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDiveSheet = async () => {
@@ -29,9 +28,9 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
 
         // Set the initial form values from the fetched diveSheetData
         if (diveSheetData) {
-          setEditedTitle(diveSheetData.title);
+          setTitle(diveSheetData.title);
           setEditedIsElevenDive(diveSheetData.is11Dive);
-          setEditedDives(diveSheetData.dives);
+          setDives([...diveSheetData.dives]); // Make sure to create a new array
         }
       } catch (error) {
         console.error('Error fetching dive sheet:', error);
@@ -45,7 +44,6 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
         setDiveData(diveData);
       } catch (error) {
         console.error('Error retrieving dive data:', error);
-        // Handle error retrieving dive data
       }
     };
 
@@ -71,35 +69,26 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
     };
   }, [selectedDiveIndex]);
 
-  const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
 
-    if (type === 'checkbox') {
-      setEditedIsElevenDive(checked);
-    } else if (name === 'title') {
-      setEditedTitle(value);
-    }
+  const handleCheckboxChange = (e) => {
+    setEditedIsElevenDive(e.target.checked);
+    setDives((prevDives) => {
+      if (e.target.checked) {
+        return Array(11).fill({ diveNumber: '', dive: '', position: '', dd: '' });
+      } else {
+        return prevDives.slice(0, 6);
+      }
+    });
   };
 
   const clearContainer = (index, fieldName, fieldValue) => {
-    setEditedDiveSheet((prevState) => {
-      const updatedDives = [...prevState.dives];
-      updatedDives[index] = { ...editedDiveSheet.dives[index], [fieldName]: fieldValue };
-
-      // If all fields in the cleared container are empty, remove the dive
-      if (
-        updatedDives[index].diveNumber === '' &&
-        updatedDives[index].dive === '' &&
-        updatedDives[index].position === '' &&
-        updatedDives[index].dd === ''
-      ) {
-        updatedDives.splice(index, 1);
-      }
-
-      return {
-        ...prevState,
-        dives: updatedDives,
-      };
+    setDives((prevDives) => {
+      const updatedDives = [...prevDives];
+      updatedDives[index] = { ...updatedDives[index], [fieldName]: fieldValue };
+      return updatedDives;
     });
   };
 
@@ -108,31 +97,66 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
 
     if (!value) {
       clearContainer(index, fieldName, value);
+      setDiveOptions((prevOptions) => {
+        const updatedOptions = [...prevOptions];
+        updatedOptions[index] = [];
+        return updatedOptions;
+      });
       return;
     }
 
-    setEditedDiveSheet((prevState) => {
-      const updatedDives = [...prevState.dives];
-      updatedDives[index] = { ...updatedDives[index], [fieldName]: value };
-      return {
-        ...prevState,
-        dives: updatedDives,
-      };
+    if (value.length < (dives[index][fieldName] || '').length) {
+      setDives((prevDives) => {
+        const updatedDives = [...prevDives];
+        updatedDives[index] = { ...updatedDives[index], [fieldName]: value };
+
+        updatedDives[index] = Object.keys(updatedDives[index]).reduce((obj, key) => {
+          if (key !== fieldName) {
+            obj[key] = '';
+          }
+          return obj;
+        }, updatedDives[index]);
+
+        return updatedDives;
+      });
+    } else {
+      setDives((prevDives) => {
+        const updatedDives = [...prevDives];
+        updatedDives[index] = { ...updatedDives[index], [fieldName]: value };
+        return updatedDives;
+      });
+    }
+
+    const { diveNumber, dive, position, dd } = {
+      ...dives[index],
+      [fieldName]: value,
+    };
+
+    const filteredDives = diveData.filter((item) => {
+      const { diveNumber: itemDiveNumber, dive: itemDive, position: itemPosition, dd: itemDD } = item;
+      return (
+        (!diveNumber || itemDiveNumber.includes(diveNumber)) &&
+        (!dive || itemDive.toLowerCase().includes(dive.toLowerCase())) &&
+        (!position || itemPosition.toLowerCase() === position.toLowerCase()) &&
+        (!dd || itemDD === dd)
+      );
+    });
+
+    setDiveOptions((prevOptions) => {
+      const updatedOptions = [...prevOptions];
+      updatedOptions[index] = filteredDives;
+      return updatedOptions;
     });
 
     setSelectedDiveIndex(index);
   };
 
   const handleDiveSelect = (option, index) => {
-    setEditedDiveSheet((prevState) => {
-      const updatedDives = [...prevState.dives];
-      updatedDives[index] = { ...option };
-      return {
-        ...prevState,
-        dives: updatedDives,
-      };
+    setDives((prevDives) => {
+      const updatedDives = [...prevDives];
+      updatedDives[index] = { ...updatedDives[index], ...option };
+      return updatedDives;
     });
-
     setSelectedDiveIndex(null);
   };
 
@@ -140,15 +164,13 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
     e.preventDefault();
 
     try {
-      console.log('Dive sheet form data:', editedDiveSheet); // Add this log to check the value of diveSheetFormData
-
       const updatedSheet = {
-        title: editedTitle,
-        dives: editedDives,
-        is11Dive: editedIsElevenDive,
+        title: title,
+        dives: dives,
+        is11Dive: editedIsElevenDive, // Use the edited value here
       };
 
-      console.log('Updated sheet data:', updatedSheet); // Add this log to check the value of updatedSheet
+      console.log('Updated sheet data:', updatedSheet);
 
       // ... (Existing code for updating the dive sheet)
     } catch (error) {
@@ -169,23 +191,21 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
           <input
             type="text"
             name="title"
-            value={editedTitle}
-            onChange={handleInputChange}
+            value={title}
+            onChange={handleTitleChange}
             className={styles.input}
           />
           <label>
             <input
               type="checkbox"
               checked={editedIsElevenDive}
-              onChange={handleInputChange}
+              onChange={handleCheckboxChange}
             />
             Is this sheet 11 dives?
           </label>
         </div>
         <div className={styles.container}>
-          <div className={styles.infoContainer}>
-            {/* ... (Existing code for profile info) */}
-          </div>
+          {/* ... (Existing code for profile info) */}
           <img
             src={divesheetbackground}
             className={styles.backgroundImage}
@@ -195,32 +215,32 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
           <form className={styles.overlayForm} onSubmit={handleDiveSheetSubmit}>
             {editedIsElevenDive ? (
               <ElevenDiveComponent
-                dives={editedDiveSheet.dives}
+                dives={dives}
                 handleDiveChange={handleDiveChange}
                 handleDiveSelect={handleDiveSelect}
                 selectedDiveIndex={selectedDiveIndex}
-                diveOptions={[]}
+                diveOptions={diveOptions}
               />
             ) : (
               <SixDiveComponent
-                dives={editedDiveSheet.dives}
+                dives={dives}
                 handleDiveChange={handleDiveChange}
                 handleDiveSelect={handleDiveSelect}
                 selectedDiveIndex={selectedDiveIndex}
-                diveOptions={[]}
+                diveOptions={diveOptions}
               />
             )}
           </form>
         </div>
-            <div className={styles.btnContainer}>
-            <button className="Save" type="submit">
-              Save
-            </button>
-            <button className="Print">Print</button>
-            <button className="Delete" onClick={() => handleDeleteSheet(diveSheet._id)}>
-              Delete
-            </button>
-            </div>
+        <div className={styles.btnContainer}>
+          <button className="Save" type="submit">
+            Save
+          </button>
+          <button className="Print">Print</button>
+          <button className="Delete" onClick={() => handleDeleteSheet(diveSheet._id)}>
+            Delete
+          </button>
+        </div>
       </div>
     </>
   );
