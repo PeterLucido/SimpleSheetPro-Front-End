@@ -73,16 +73,16 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
     setTitle(e.target.value);
   };
 
-  const handleCheckboxChange = (e) => {
-    setEditedIsElevenDive(e.target.checked);
-    setDives((prevDives) => {
-      if (e.target.checked) {
-        return Array(11).fill({ diveNumber: '', dive: '', position: '', dd: '' });
-      } else {
-        return prevDives.slice(0, 6);
-      }
-    });
-  };
+  // const handleCheckboxChange = (e) => {
+  //   setEditedIsElevenDive(e.target.checked);
+  //   setDives((prevDives) => {
+  //     if (e.target.checked) {
+  //       return Array(11).fill({ diveNumber: '', dive: '', position: '', dd: '' });
+  //     } else {
+  //       return prevDives.slice(0, 6);
+  //     }
+  //   });
+  // };
 
   const clearContainer = (index, fieldName, fieldValue) => {
     setDives((prevDives) => {
@@ -195,14 +195,14 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
             onChange={handleTitleChange}
             className={styles.input}
           />
-          <label>
+          {/* <label>
             <input
               type="checkbox"
               checked={editedIsElevenDive}
               onChange={handleCheckboxChange}
             />
             Is this sheet 11 dives?
-          </label>
+          </label> */}
         </div>
         <div className={styles.container}>
           {/* ... (Existing code for profile info) */}
