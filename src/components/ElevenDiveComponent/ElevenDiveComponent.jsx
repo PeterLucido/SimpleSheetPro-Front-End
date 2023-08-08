@@ -1,6 +1,5 @@
-import React from 'react';
-import Dive from '../Dive/Dive';
 import { useRef } from 'react';
+import Dive from '../Dive/Dive';
 
 const ElevenDiveComponent = ({ dives, handleDiveChange, handleDiveSelect, selectedDiveIndex, diveOptions }) => {
   const inputRefs = useRef([]);
