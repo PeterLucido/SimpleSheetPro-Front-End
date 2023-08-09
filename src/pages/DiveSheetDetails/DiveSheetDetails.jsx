@@ -6,6 +6,7 @@ import * as sheetService from '../../services/sheetService';
 import SixDiveComponent from '../../components/SixDiveComponent/SixDiveComponent';
 import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDiveComponent';
 import { getDives } from '../../services/diveService';
+import { set } from 'mongoose';
 
 const DiveSheetDetails = ({ handleDeleteSheet }) => {
   const [diveSheet, setDiveSheet] = useState(null);
@@ -162,6 +163,7 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
   };
 
   async function handleDiveSheetSubmit(e) {
+    setIsEditing(false);
     e.preventDefault();
 
     try {
@@ -241,13 +243,18 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
           </form>
         </div>
         <div className={styles.btnContainer}>
-          <button className="Edit" onClick={handleEdit}>
-            Edit
+          {isEditing ? (
+            <button className="Save" type="submit" onClick={handleDiveSheetSubmit}>
+              Save
+            </button>
+          ) : (
+            <button className="Edit" onClick={handleEdit}>
+              Edit
+            </button>
+          )}
+          <button className="Print">
+            Print
           </button>
-          <button className="Save" type="submit">
-            Save
-          </button>
-          <button className="Print">Print</button>
           <button className="Delete" onClick={() => handleDeleteSheet(diveSheet._id)}>
             Delete
           </button>
