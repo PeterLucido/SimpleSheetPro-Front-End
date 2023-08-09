@@ -6,8 +6,10 @@ import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDive
 import divesheetbackground from '/src/divesheetbackground.png';
 import * as sheetService from '../../services/sheetService';
 import { getDives } from '../../services/diveService';
+import divegif from '/src/divegif.gif';
 
 const NewDiveSheet = ({ profile }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [title, setTitle] = useState('');
   const [isElevenDive, setIsElevenDive] = useState(false);
   const [dives, setDives] = useState(Array(6).fill({ diveNumber: '', dive: '', position: '', dd: '' }));
@@ -154,6 +156,7 @@ const NewDiveSheet = ({ profile }) => {
     e.preventDefault();
   
     try {
+      setIsSubmitting(true); // Start the animation
       const newDiveSheet = {
         title: title,
         dives: dives,
@@ -162,9 +165,13 @@ const NewDiveSheet = ({ profile }) => {
   
       const create = await sheetService.create(newDiveSheet, profile);
       console.log('Dive sheet saved:', create);
-      // Redirect to the dive sheet list
-      navigate('/diveSheets'); // Replace '/dive-sheet-list' with the actual URL of your dive sheet list page
+      // Redirect to the dive sheet list after the GIF animation
+      setTimeout(() => {
+        setIsSubmitting(false);
+        navigate('/diveSheets'); // Replace '/dive-sheet-list' with the actual URL of your dive sheet list page
+      }, 1000); // Adjust the delay time (in milliseconds) to match the duration of your GIF animation
     } catch (error) {
+      setIsSubmitting(false);
       console.error('Error creating dive sheet:', error);
       // Handle error during dive sheet creation, such as displaying an error message.
     }
@@ -204,6 +211,11 @@ const NewDiveSheet = ({ profile }) => {
             alt="Dive Sheet Background"
           />
           <form className={styles.overlayForm} onSubmit={handleDiveSheetSubmit}>
+          <div className={styles.gifContainer}>
+            {isSubmitting && (
+              <img src={divegif} alt="Diving Animation" className={styles.diveGif} />
+            )}
+          </div>
             {isElevenDive ? (
               <ElevenDiveComponent
                 dives={dives}
@@ -226,8 +238,13 @@ const NewDiveSheet = ({ profile }) => {
           </form>
         </div>
         <div className={styles.btnContainer}>
-          <button className="Save" type="submit" onClick={handleDiveSheetSubmit} disabled={false}>
-            Submit
+          <button
+            className="Save"
+            type="submit"
+            onClick={handleDiveSheetSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
           <button className="Print">Print</button>
           <button className="Delete">Delete</button>

@@ -217,4 +217,18 @@
   top: 20px;
 }
 
+.gifContainer {
+  display: flex;
+  position: relative;
+  /* justify-content: space-between; */
+  align-items: center;
+  left: 300px;
+  top: 30px;
+  width: 200px;
+  height: 200px;
+}
 
+.diveGif {
+  width: 200px;
+  height: 200px;
+}
