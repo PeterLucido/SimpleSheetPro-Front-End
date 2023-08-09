@@ -211,11 +211,11 @@ const NewDiveSheet = ({ profile }) => {
             alt="Dive Sheet Background"
           />
           <form className={styles.overlayForm} onSubmit={handleDiveSheetSubmit}>
-          <div className={styles.gifContainer}>
+          {/* <div className={styles.gifContainer}>
             {isSubmitting && (
               <img src={divegif} alt="Diving Animation" className={styles.diveGif} />
             )}
-          </div>
+          </div> */}
             {isElevenDive ? (
               <ElevenDiveComponent
                 dives={dives}

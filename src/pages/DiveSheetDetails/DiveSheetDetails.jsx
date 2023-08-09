@@ -6,9 +6,9 @@ import * as sheetService from '../../services/sheetService';
 import SixDiveComponent from '../../components/SixDiveComponent/SixDiveComponent';
 import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDiveComponent';
 import { getDives } from '../../services/diveService';
-import { set } from 'mongoose';
 
-const DiveSheetDetails = ({ handleDeleteSheet }) => {
+
+const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
   const [diveSheet, setDiveSheet] = useState(null);
   const [diveOptions, setDiveOptions] = useState([]);
   const [editedDiveSheet, setEditedDiveSheet] = useState(null);
@@ -20,6 +20,7 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
   const { diveSheetId } = useParams();
   const [diveData, setDiveData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  // console.log(profile);
 
   useEffect(() => {
     const fetchDiveSheet = async () => {
@@ -35,7 +36,7 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
           setDives([...diveSheetData.dives]); // Make sure to create a new array
         }
       } catch (error) {
-        console.error('Error fetching dive sheet:', error);
+        // console.error('Error fetching dive sheet:', error);
         // Handle the error, show a message, or redirect the user if needed
       }
     };
@@ -74,17 +75,6 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
-
-  // const handleCheckboxChange = (e) => {
-  //   setEditedIsElevenDive(e.target.checked);
-  //   setDives((prevDives) => {
-  //     if (e.target.checked) {
-  //       return Array(11).fill({ diveNumber: '', dive: '', position: '', dd: '' });
-  //     } else {
-  //       return prevDives.slice(0, 6);
-  //     }
-  //   });
-  // };
 
   const clearContainer = (index, fieldName, fieldValue) => {
     setDives((prevDives) => {
@@ -165,22 +155,41 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
   async function handleDiveSheetSubmit(e) {
     setIsEditing(false);
     e.preventDefault();
-
+  
     try {
+      console.log('diveSheet ID:', diveSheet._id);
+      console.log('editedDiveSheet ID:', editedDiveSheet._id);
+  
       const updatedSheet = {
+        _id: diveSheet._id,
         title: title,
         dives: dives,
-        is11Dive: editedIsElevenDive, // Use the edited value here
       };
-
+  
       console.log('Updated sheet data:', updatedSheet);
-
-      // ... (Existing code for updating the dive sheet)
+  
+      // Call the API to update the dive sheet
+      const updatedDiveSheet = await sheetService.update(updatedSheet, diveSheet._id); // Corrected argument order here
+  
+      console.log('Updated dive sheet:', updatedDiveSheet);
+  
+      // Update the editedDiveSheet state with the updated data
+      setEditedDiveSheet(updatedDiveSheet);
+  
+      // Optionally show a success message or redirect
+      // Redirect to the dive sheet list or show a success message
     } catch (error) {
       console.error('Error updating dive sheet:', error);
       // Handle error during update, such as displaying an error message.
     }
   }
+  
+  
+  
+  
+  
+  
+  
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -203,17 +212,23 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
             className={styles.input}
             readOnly={!isEditing}
           />
-          {/* <label>
-            <input
-              type="checkbox"
-              checked={editedIsElevenDive}
-              // onChange={handleCheckboxChange}
-            />
-            Is this sheet 11 dives?
-          </label> */}
         </div>
         <div className={styles.container}>
-          {/* ... (Existing code for profile info) */}
+          <div className={styles.infoContainer}>
+            <div className={styles.Name}>
+              <h1>{profile && profile.firstName} {profile && profile.lastName}</h1>
+            </div>
+            <div className={styles.School}>
+              <h1>School</h1>
+            </div>
+            <div className={styles.Grade}>
+              <h1>{profile && profile.grade}</h1>
+            </div>
+            <div className={styles.Gender}>
+              <div className={styles.genderBoy}>{profile && profile.gender === 'Male' ? 'x' : null}</div>
+              <div className={styles.genderGirl}>{profile && profile.gender === 'Female' ? 'x' : null}</div>
+            </div>
+          </div>
           <img
             src={divesheetbackground}
             className={styles.backgroundImage}

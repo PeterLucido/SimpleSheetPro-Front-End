@@ -16,11 +16,11 @@ const SheetCard = ({ diveSheet }) => {
   }
 
   return (
-    <div className={styles.SheetCard}>
-      <Link to={`/DiveSheets/${diveSheet._id}`}>
-        <h2>{diveSheet.title}</h2>
-      </Link>
-    </div>
+    <Link to={`/DiveSheets/${diveSheet._id}`}>
+      <div className={styles.SheetCard}>
+          <h2>{diveSheet.title}</h2>
+      </div>
+    </Link>
   );
 };
 

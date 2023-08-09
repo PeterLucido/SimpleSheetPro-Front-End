@@ -47,21 +47,24 @@ async function show(diveSheetId) {
   }
 }
 
-async function update(diveSheetFormData) {
+async function update(updatedSheet, diveSheetId) {
   try {
-    const res = await fetch(`${BASE_URL}/${diveSheetFormData._id}`, {
+    console.log('Updating dive sheet with ID:', diveSheetId);
+    console.log('Update data:', updatedSheet);
+    const res = await fetch(`${BASE_URL}/${diveSheetId}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${tokenService.getToken()}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(diveSheetFormData)
-    })
-    return res.json()
+      body: JSON.stringify(updatedSheet) // Pass updatedSheet as the body
+    });
+    return res.json();
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
+
 
 async function deleteSheet(diveSheetId) {
   try {

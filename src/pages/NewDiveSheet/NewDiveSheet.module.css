@@ -186,10 +186,9 @@
   left: 90px;
 }
 .Grade{
-  display: flex;
   position: relative;
   top: 67px;
-  right: 468px;
+  right: 492px;
   font-size: 10px;
 }
 .Gender{
