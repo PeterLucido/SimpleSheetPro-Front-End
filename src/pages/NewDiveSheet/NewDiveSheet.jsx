@@ -17,6 +17,7 @@ const NewDiveSheet = ({ profile }) => {
   const containerRef = useRef(null);
   const inputDiveContainerRefs = useRef([]);
   const navigate = useNavigate();
+  const [isEditing] = useState(true);
   console.log(profile);
   console.log(diveData);
 
@@ -210,7 +211,7 @@ const NewDiveSheet = ({ profile }) => {
                 handleDiveSelect={handleDiveSelect}
                 selectedDiveIndex={selectedDiveIndex}
                 diveOptions={diveOptions}
-                // editMode={true}
+                isEditing={isEditing}
               />
             ) : (
               <SixDiveComponent
@@ -219,7 +220,7 @@ const NewDiveSheet = ({ profile }) => {
                 handleDiveSelect={handleDiveSelect}
                 selectedDiveIndex={selectedDiveIndex}
                 diveOptions={diveOptions}
-                // editMode={true}
+                isEditing={isEditing}
               />
             )}
           </form>

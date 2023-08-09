@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import Dive from '../Dive/Dive';
 
-const ElevenDiveComponent = ({ dives, handleDiveChange, handleDiveSelect, selectedDiveIndex, diveOptions }) => {
+const ElevenDiveComponent = ({ dives, handleDiveChange, handleDiveSelect, selectedDiveIndex, diveOptions, isEditing }) => {
   const inputRefs = useRef([]);
 
   return (
@@ -16,6 +16,7 @@ const ElevenDiveComponent = ({ dives, handleDiveChange, handleDiveSelect, select
           selectedDiveIndex={selectedDiveIndex}
           diveOptions={diveOptions[index] || []}
           diveInputRef={(el) => (inputRefs.current[index] = el)}
+          isEditing={isEditing} 
         />
       ))}
     </div>

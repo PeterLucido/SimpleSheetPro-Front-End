@@ -9,6 +9,7 @@ const Dive = ({
   selectedDiveIndex,
   diveOptions,
   diveInputRef,
+  isEditing, // Add isEditing prop
 }) => {
   const inputRef = useRef(null);
 
@@ -18,6 +19,12 @@ const Dive = ({
     }
   }, [selectedDiveIndex, index]);
 
+  const handleInputChange = (e, fieldName) => {
+    if (isEditing) {
+      handleDiveChange(e, index, fieldName);
+    }
+  };
+
   return (
     <div className={`${styles.diveContainer} ${styles[`diveContainer${index + 1}`]}`} ref={inputRef}>
       {/* Dive Number */}
@@ -25,9 +32,10 @@ const Dive = ({
         <input
           type="text"
           value={dive.diveNumber}
-          onChange={(e) => handleDiveChange(e, index, 'diveNumber')}
+          onChange={(e) => handleInputChange(e, 'diveNumber')} // Use the new handleInputChange function
           className={styles.input}
           ref={inputRef}
+          readOnly={!isEditing}
         />
         {selectedDiveIndex === index && diveOptions.length > 0 && (
           <div className={styles.diveOptionsContainer}>
@@ -44,9 +52,10 @@ const Dive = ({
         <input
           type="text"
           value={dive.dive}
-          onChange={(e) => handleDiveChange(e, index, 'dive')}
+          onChange={(e) => handleInputChange(e, 'dive')} // Use the new handleInputChange function
           className={styles.input}
           ref={diveInputRef}
+          readOnly={!isEditing}
         />
       </div>
       {/* Dive Position */}
@@ -54,9 +63,10 @@ const Dive = ({
         <input
           type="text"
           value={dive.position}
-          onChange={(e) => handleDiveChange(e, index, 'position')}
+          onChange={(e) => handleInputChange(e, 'position')} // Use the new handleInputChange function
           className={styles.input}
           ref={diveInputRef}
+          readOnly={!isEditing}
         />
       </div>
       {/* Dive DD */}
@@ -64,9 +74,10 @@ const Dive = ({
         <input
           type="text"
           value={dive.dd}
-          onChange={(e) => handleDiveChange(e, index, 'dd')}
+          onChange={(e) => handleInputChange(e, 'dd')} // Use the new handleInputChange function
           className={styles.input}
           ref={diveInputRef}
+          readOnly={!isEditing}
         />
       </div>
     </div>

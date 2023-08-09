@@ -18,6 +18,7 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
   const inputDiveContainerRefs = useRef([]);
   const { diveSheetId } = useParams();
   const [diveData, setDiveData] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchDiveSheet = async () => {
@@ -179,6 +180,10 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
     }
   }
 
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
   if (!diveSheet || !editedDiveSheet) {
     return <div>Loading...</div>;
   }
@@ -194,12 +199,13 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
             value={title}
             onChange={handleTitleChange}
             className={styles.input}
+            readOnly={!isEditing}
           />
           {/* <label>
             <input
               type="checkbox"
               checked={editedIsElevenDive}
-              onChange={handleCheckboxChange}
+              // onChange={handleCheckboxChange}
             />
             Is this sheet 11 dives?
           </label> */}
@@ -220,6 +226,7 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
                 handleDiveSelect={handleDiveSelect}
                 selectedDiveIndex={selectedDiveIndex}
                 diveOptions={diveOptions}
+                isEditing={isEditing}
               />
             ) : (
               <SixDiveComponent
@@ -228,11 +235,15 @@ const DiveSheetDetails = ({ handleDeleteSheet }) => {
                 handleDiveSelect={handleDiveSelect}
                 selectedDiveIndex={selectedDiveIndex}
                 diveOptions={diveOptions}
+                isEditing={isEditing}
               />
             )}
           </form>
         </div>
         <div className={styles.btnContainer}>
+          <button className="Edit" onClick={handleEdit}>
+            Edit
+          </button>
           <button className="Save" type="submit">
             Save
           </button>
