@@ -20,6 +20,7 @@ const NewDiveSheet = ({ profile }) => {
   const inputDiveContainerRefs = useRef([]);
   const navigate = useNavigate();
   const [isEditing] = useState(true);
+  const [isShrinking, setIsShrinking] = useState(false);
   console.log(profile);
   console.log(diveData);
 
@@ -154,9 +155,11 @@ const NewDiveSheet = ({ profile }) => {
 
   const handleDiveSheetSubmit = async (e) => {
     e.preventDefault();
-  
+    
     try {
       setIsSubmitting(true); // Start the animation
+      setIsShrinking(true); // Trigger the shrinking and moving up animation
+      
       const newDiveSheet = {
         title: title,
         dives: dives,
@@ -165,21 +168,23 @@ const NewDiveSheet = ({ profile }) => {
   
       const create = await sheetService.create(newDiveSheet, profile);
       console.log('Dive sheet saved:', create);
-      // Redirect to the dive sheet list after the GIF animation
+      // Redirect to the dive sheet list after the animation
       setTimeout(() => {
         setIsSubmitting(false);
         navigate('/diveSheets'); // Replace '/dive-sheet-list' with the actual URL of your dive sheet list page
-      }, 1000); // Adjust the delay time (in milliseconds) to match the duration of your GIF animation
+      }, 1000); // Adjust the delay time (in milliseconds) to match the duration of your animation
     } catch (error) {
       setIsSubmitting(false);
       console.error('Error creating dive sheet:', error);
       // Handle error during dive sheet creation, such as displaying an error message.
     }
   };
+  
+  
 
   return (
     <>
-      <div className={styles.fullContainer} ref={containerRef}>
+      <div className={`${styles.fullContainer} ${isShrinking ? styles.shrinkUp : ''}`} ref={containerRef}>
         <div className={styles.titleContainer}>
           <label>Title:</label>
           <input type="text" placeholder="Title" value={title} onChange={handleTitleChange} />
