@@ -7,6 +7,11 @@
   margin: auto;
 }
 
+.boxy {
+  position: relative;
+  top: 75px;
+}
+
 .backgroundImage {
   width: 100%;
   height: 100%;
@@ -14,25 +19,37 @@
   margin-bottom: 10px;
 }
 
+.Title {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.CheckBox {
+  font-size: 20px;
+  color: black;
+}
+
 .titleContainer {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 10px;
+  align-items: left;
+  flex-direction: column;
+  width: 14%; 
+  /* justify-content: center; */
+  /* top: 50px; */
+  /* left: 100%; */
+  bottom: 100%;
 }
 
 .fullContainer {
   display: flex;
-  /* width: 60%; */
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
-  /* position: fixed; */
 }
 
 .overlayForm {
   position: absolute;
-  top: 266px;
+  top: 265px;
   left: 85px;
   width: 75%;
   height: auto;
@@ -212,14 +229,18 @@
 
 .btnContainer {
   display: flex;
-  position: relative;
-  top: 20px;
+  justify-content: space-between; /* Distributes space between items */
+  margin-top: 20px; /* Adjusts top margin */
+}
+
+/* If you need more space, adjust margins of the buttons */
+.btnContainer > button {
+  margin: 0 15px; /* Adjust the value '10px' as needed */
 }
 
 .gifContainer {
   display: flex;
   position: relative;
-  /* justify-content: space-between; */
   align-items: center;
   left: 300px;
   top: 30px;

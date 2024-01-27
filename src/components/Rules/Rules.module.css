@@ -1,0 +1,34 @@
+/* Rules.css */
+.rules-container {
+  position: fixed;
+  display: flex;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.rules-icon {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.rules-popup {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+.close-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+}

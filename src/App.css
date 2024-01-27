@@ -13,7 +13,7 @@ body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #efefef;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -32,45 +32,17 @@ nav > ul {
   padding: 16px 32px;
 }
 
-.left-sidebar {
-  display: flex;
-  position: fixed;
-  top: 140px;
-  left: 40px;
-  bottom: 100px;
-  width: 275px;
-  height: 700px;
-  background-color: white;
-  border-radius: 10px;
-  flex-direction: column;
-    align-items: center;
-}
-
-
-
-.right-sidebar {
-  position: fixed;
-  top: 140px;
-  right: 40px;
-  bottom: 100px;
-  width: 275px;
-  height: 700px;
-  background-color: white;
-  border-radius: 10px;
-}
-
 .title-box {
   position: fixed;
-  border-radius: 50px;
-  top: 10px;
+  z-index: 3;
   left: 50%;
   transform: translateX(-50%);
   width: 350px;
   height: 60px;
-  background-color: white;
-  display: flex;         /* enable flex */
-  justify-content: center; /* align horizontally center */
-  align-items: center;    /* align vertically center */
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 
 .title-box h1 {
@@ -80,36 +52,65 @@ nav > ul {
 }
 
 .Save {
-  color: white;
-  position: relative;
-  right: 50px;
+  color: rgb(0, 187, 255); /* Text and border color */
   font-size: 20px;
-  background-color: #1a9a1a;
+  background-color: transparent;
   border-radius: 5px;
-  border: none;
+  border: 2px solid rgb(0, 187, 255); /* Border color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.3s;
 }
+
+.Save:hover {
+  background-color: rgb(0, 187, 255);
+  color: white;
+}
+
 .Edit {
-  color: white;
-  position: relative;
-  right: 50px;
+  color: rgb(0, 187, 255); /* Text and border color */
   font-size: 20px;
-  background-color: #1a9a1a;
+  background-color: transparent;
   border-radius: 5px;
-  border: none;
+  border: 2px solid rgb(0, 187, 255); /* Border color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.3s;
 }
+
+.Edit:hover {
+  background-color: rgb(0, 187, 255);
+  color: white;
+}
+
 .Print {
-  color: white;
-  background-color: blue;
+  color: rgb(0, 187, 255); /* Text and border color */
   font-size: 20px;
+  background-color: transparent;
   border-radius: 5px;
-  border: none;
+  border: 2px solid rgb(0, 187, 255); /* Border color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.3s;
 }
-.Delete {
+
+.Print:hover {
+  background-color: rgb(0, 187, 255);
   color: white;
-  background-color: red;
-  position: relative;
-  left: 50px;
+}
+
+.Delete {
+  color: red; /* Text and border color */
   font-size: 20px;
+  background-color: transparent;
   border-radius: 5px;
-  border: none;
+  border: 2px solid red; /* Border color */
+  padding: 5px 10px; /* Adjust padding as needed */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.3s;
+}
+
+.Delete:hover {
+  background-color: red;
+  color: white;
 }

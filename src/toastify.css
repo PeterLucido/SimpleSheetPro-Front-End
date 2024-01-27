@@ -1,0 +1,32 @@
+/* toastify-custom.css */
+
+/* Styling for the toast container */
+.Toastify__toast-container {
+  font-family: Arial, sans-serif;
+  width: 300px;
+}
+
+/* Styling for the toast */
+.Toastify__toast {
+  background-color: #ff3c3c;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the close button */
+.Toastify__close-button {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+}
+
+.Toastify__close-button:hover {
+  color: #eaeaea;
+}

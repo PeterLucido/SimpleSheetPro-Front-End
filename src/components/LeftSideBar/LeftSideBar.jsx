@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { NavLink } from 'react-router-dom';
 import pfp from '/src/pfp.png';
 import Styles from './LeftSideBar.module.css';

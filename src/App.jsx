@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import Signup from './pages/Signup/Signup';
+// import Rules from './components/Rules/Rules.jsx'
 import Login from './pages/Login/Login';
 import Landing from './pages/Landing/Landing';
 import Profiles from './pages/Profiles/Profiles';
@@ -10,10 +11,12 @@ import ChangePassword from './pages/ChangePassword/ChangePassword';
 import SheetList from './pages/SheetList/SheetList';
 import NewDiveSheet from './pages/NewDiveSheet/NewDiveSheet';
 import DiveSheetDetails from './pages/DiveSheetDetails/DiveSheetDetails';
+// import Team from './pages/Team/Team';
+import NavBar from './components/NavBar/NavBar';
 
 import TitleBox from './components/TitleBox/TitleBox';
-import LeftSideBar from './components/LeftSideBar/LeftSideBar';
-import RightSideBar from './components/RightSideBar/RightSideBar';
+// import LeftSideBar from './components/LeftSideBar/LeftSideBar';
+// import RightSideBar from './components/RightSideBar/RightSideBar';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 import * as authService from './services/authService';
@@ -41,18 +44,21 @@ function App() {
     if (user) fetchProfiles()
   }, [user])
 
-  useEffect(() => {
-    switch (location.pathname) {
-      case '/profiles':
-        setTitle('Profiles');
-        break;
-      case '/DiveSheets':
-        setTitle('Dive Sheets');
-        break;
-      default:
-        setTitle('Simple Sheet Pro');
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   switch (location.pathname) {
+  //     case '/profiles':
+  //       setTitle('Profiles');
+  //       break;
+  //     case '/DiveSheets':
+  //       setTitle('Dive Sheets');
+  //       break;
+  //     case '/divesheets/new':
+  //       setTitle('New Dive Sheet');
+  //       break;
+  //     default:
+  //       setTitle('Simple Sheet Pro');
+  //   }
+  // }, [location]);
 
   const handleLogout = () => {
     authService.logout();
@@ -90,11 +96,18 @@ function App() {
   return (
     <>
       <TitleBox title={title} />
-      <LeftSideBar 
+      {/* <Rules /> */}
+      {/* <LeftSideBar 
         user={user} 
         profile={profile} 
         handleLogout={handleLogout} 
+      /> */}
+      <NavBar 
+        user={user} 
+        profile={profile}
+        handleLogout={handleLogout}
       />
+
       <Routes>
         <Route 
           path="/" 
@@ -175,7 +188,7 @@ function App() {
           } 
         />
       </Routes>
-      <RightSideBar />
+      {/* <RightSideBar /> */}
     </>
   );
 }

@@ -6,6 +6,7 @@ import * as sheetService from '../../services/sheetService';
 import SixDiveComponent from '../../components/SixDiveComponent/SixDiveComponent';
 import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDiveComponent';
 import { getDives } from '../../services/diveService';
+import { set } from 'mongoose';
 
 
 const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
@@ -20,6 +21,7 @@ const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
   const { diveSheetId } = useParams();
   const [diveData, setDiveData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [formattedTotalDD, setFormattedTotalDD] = useState(0);
   // console.log(profile);
 
   useEffect(() => {
@@ -28,18 +30,29 @@ const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
         const diveSheetData = await sheetService.show(diveSheetId);
         setDiveSheet(diveSheetData);
         setEditedDiveSheet(diveSheetData);
-
-        // Set the initial form values from the fetched diveSheetData
+    
         if (diveSheetData) {
           setTitle(diveSheetData.title);
           setEditedIsElevenDive(diveSheetData.is11Dive);
-          setDives([...diveSheetData.dives]); // Make sure to create a new array
+          setDives([...diveSheetData.dives]);
+    
+          // Calculate the total dd
+          const totalDD = diveSheetData.dives.reduce((total, dive) => {
+            return total + dive.dd;
+          }, 0);
+    
+          // Format to one decimal place
+          const formattedTotalDD = parseFloat(totalDD.toFixed(1));
+          setFormattedTotalDD(formattedTotalDD);
+    
+          // Use formattedTotalDD as needed
+          console.log("Total DD:", formattedTotalDD);
         }
       } catch (error) {
-        // console.error('Error fetching dive sheet:', error);
-        // Handle the error, show a message, or redirect the user if needed
+        // Handle error
       }
     };
+    
 
     const fetchDiveData = async () => {
       try {
@@ -201,9 +214,10 @@ const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
 
   return (
     <>
+    <div className={styles.boxy}>
       <div className={styles.fullContainer}>
         <div className={styles.titleContainer}>
-          <label>Title:</label>
+          <label className={styles.Title}>Title:</label>
           <input
             type="text"
             name="title"
@@ -255,6 +269,7 @@ const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
                 isEditing={isEditing}
               />
             )}
+          <div className={styles.DDTotal}>{formattedTotalDD}</div>
           </form>
         </div>
         <div className={styles.btnContainer}>
@@ -274,6 +289,7 @@ const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
             Delete
           </button>
         </div>
+      </div>
       </div>
     </>
   );

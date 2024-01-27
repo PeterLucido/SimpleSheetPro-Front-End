@@ -5,8 +5,11 @@
   width: 900px;
   height: auto;
   margin: auto;
-  flex-direction: column;
-  align-items: center;
+}
+
+.boxy {
+  position: relative;
+  top: 75px;
 }
 
 .backgroundImage {
@@ -14,6 +17,12 @@
   height: 100%;
   object-fit: cover;
   margin-bottom: 10px;
+}
+
+.Title {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
 }
 
 .titleContainer {
@@ -26,11 +35,8 @@
 
 .fullContainer {
   display: flex;
-  /* width: 60%; */
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
-  /* position: fixed; */
 }
 
 .overlayForm {
@@ -216,13 +222,20 @@
 
 .btnContainer {
   display: flex;
-  position: relative;
-  top: 20px;
-  justify-content: center;
+  justify-content: space-between; /* Distributes space between items */
+  margin-top: 20px; /* Adjusts top margin */
 }
 
-/* .readOnly {
-  cursor: none;
-  user-select: none;
-  pointer-events: none;
-} */
+/* If you need more space, adjust margins of the buttons */
+.btnContainer > button {
+  margin: 0 15px; /* Adjust the value '10px' as needed */
+}
+
+.DDTotal {
+  display: flex;
+  color: black;
+  position: relative;
+  top: 194px;
+  left: 94.2%;
+  font-size: 12px;
+}

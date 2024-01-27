@@ -1,13 +1,14 @@
 .SheetCard {
-  background-color: #f0f0f0;
+  background-color: #efefef;
   border-radius: 4px;
   text-align: center;
   width: 250px;
   height: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
 
 @media (max-width: 768px) {
   .SheetCard {
-    flex: 0 0 100%; /* One box per row on smaller screens */
+    flex: 0 0 100%;
   }
 }
