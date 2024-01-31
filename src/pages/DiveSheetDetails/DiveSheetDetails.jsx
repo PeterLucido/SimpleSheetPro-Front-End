@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './DiveSheetDetails.module.css';
-import divesheetbackground from '/src/divesheetbackground.png';
+import divesheetbackground from '/src/divsheet.png';
 import * as sheetService from '../../services/sheetService';
 import SixDiveComponent from '../../components/SixDiveComponent/SixDiveComponent';
 import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDiveComponent';

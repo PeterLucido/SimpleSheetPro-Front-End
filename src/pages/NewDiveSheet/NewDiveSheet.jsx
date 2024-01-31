@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styles from './NewDiveSheet.module.css';
 import SixDiveComponent from '../../components/SixDiveComponent/SixDiveComponent';
 import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDiveComponent';
-import divesheetbackground from '/src/divesheetbackground.png';
+import divesheetbackground from '/src/DivSheet.png';
 import * as sheetService from '../../services/sheetService';
 import { getDives } from '../../services/diveService';
+import VolOrOp from '../../components/VolOrOp/VolOrOp';
+import DiveSheet from '../../components/DiveSheet/DiveSheet';
 import divegif from '/src/divegif.gif';
 
 const NewDiveSheet = ({ profile }) => {
@@ -21,6 +23,7 @@ const NewDiveSheet = ({ profile }) => {
   const navigate = useNavigate();
   const [isEditing] = useState(true);
   const [isShrinking, setIsShrinking] = useState(false);
+  
   // console.log(profile);
   // console.log(diveData);
 
@@ -183,84 +186,17 @@ const NewDiveSheet = ({ profile }) => {
   
 
   return (
-    <>
-      <div className={styles.boxy}>
-        <div className={`${styles.fullContainer} ${isShrinking ? styles.shrinkUp : ''}`} ref={containerRef}>
-          <div className={styles.container}>
-            <div className={styles.infoContainer}>
-              <div className={styles.Name}>
-                <h1>{profile && profile.firstName} {profile && profile.lastName}</h1>
-              </div>
-              <div className={styles.School}>
-                <h1>School</h1>
-              </div>
-              <div className={styles.Grade}>
-                <h1>{profile && profile.grade}</h1>
-              </div>
-              <div className={styles.Gender}>
-                <div className={styles.genderBoy}>{profile && profile.gender === 'Male' ? 'x' : null}</div>
-                <div className={styles.genderGirl}>{profile && profile.gender === 'Female' ? 'x' : null}</div>
-              </div>
-            </div>
-            <img
-              src={divesheetbackground}
-              className={styles.backgroundImage}
-              id={styles.sheet}
-              alt="Dive Sheet Background"
-            />
-            <form className={styles.overlayForm} onSubmit={handleDiveSheetSubmit}>
-            {/* <div className={styles.gifContainer}>
-              {isSubmitting && (
-                <img src={divegif} alt="Diving Animation" className={styles.diveGif} />
-              )}
-            </div> */}
-              {isElevenDive ? (
-                <ElevenDiveComponent
-                  dives={dives}
-                  handleDiveChange={handleDiveChange}
-                  handleDiveSelect={handleDiveSelect}
-                  selectedDiveIndex={selectedDiveIndex}
-                  diveOptions={diveOptions}
-                  isEditing={isEditing}
-                />
-              ) : (
-                <SixDiveComponent
-                  dives={dives}
-                  handleDiveChange={handleDiveChange}
-                  handleDiveSelect={handleDiveSelect}
-                  selectedDiveIndex={selectedDiveIndex}
-                  diveOptions={diveOptions}
-                  isEditing={isEditing}
-                />
-              )}
-            </form>
-          </div>
-          <div className={styles.btnContainer}>
-            <button
-              className="Save"
-              type="submit"
-              onClick={handleDiveSheetSubmit}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit'}
-            </button>
-            <button className="Print">Print</button>
-            <button className="Delete">Delete</button>
-          </div>
+      <div className={styles.mainContainer}>
+        <div className={styles.volOrOpColumn}>
+        {/* <VolOrOp /> */}
+        </div>
+        <div className={styles.diveSheetColumn}>
+          <DiveSheet />
+        </div>
+        <div className={styles.infoInputColumn}>
+          <h1>info input container</h1>
         </div>
       </div>
-      <div className={styles.titleContainer}>
-            <input type="text" placeholder="Title" value={title} onChange={handleTitleChange} />
-            <label className={styles.CheckBox}>
-              <input type="checkbox" checked={isElevenDive} onChange={handleCheckboxChange} />
-              Is this sheet 11 dives?
-            </label>
-            <select name="6or11" id="6or11">
-              <option value="6">6 Dive Sheet</option>
-              <option value="11">11 Dive Sheet</option>
-            </select>
-          </div>
-    </>
   );
 };
 

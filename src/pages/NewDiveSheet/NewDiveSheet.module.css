@@ -8,6 +8,8 @@
 }
 
 .boxy {
+  display: flex;
+  flex-direction: column;
   position: relative;
   top: 75px;
 }
@@ -259,4 +261,34 @@
 }
 
 
+.mainContainer {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  top: 60px;
+  width: 100%;
+}
 
+.volOrOpColumn {
+  display: flex;
+  justify-content: right;
+  width: 20%;
+  color: black;
+}
+
+.diveSheetColumn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  color: black;
+}
+
+.infoInputColumn {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  top: 15px;
+  width: 20%; 
+  color: black;
+}

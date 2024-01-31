@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styles from './VolOp.module.css'
+import { useState } from 'react';
+import styles from './VolOp.module.css';
 
 const VolOrOp = () => {
     const [selectedOption, setSelectedOption] = useState('Vol');
@@ -15,8 +15,8 @@ const VolOrOp = () => {
                 onChange={handleChange}
                 className={styles.dropdown}
             >
-                <option value="Vol">Vol</option>
-                <option value="Op">Op</option>
+                <option value="V">Voluntary</option>
+                <option value="O">Optional</option>
             </select>
         </div>
     );
