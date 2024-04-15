@@ -17,7 +17,10 @@
   height: 100%;
   object-fit: cover;
   margin-bottom: 10px;
+  border-radius: 10px; /* Adjust this value to control the curvature of the corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Horizontal offset, vertical offset, blur radius, color */
 }
+
 
 .Title {
   font-size: 20px;
@@ -42,9 +45,9 @@
 .overlayForm {
   position: absolute;
   top: 265px;
-  left: 85px;
-  width: 75%;
-  height: auto;
+  left: 7px;
+  width: 100%;
+  /* height: auto; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -235,7 +238,7 @@
   display: flex;
   color: black;
   position: relative;
-  top: 194px;
-  left: 94.2%;
+  top: 85px;
+  left: 79.8%;
   font-size: 12px;
 }

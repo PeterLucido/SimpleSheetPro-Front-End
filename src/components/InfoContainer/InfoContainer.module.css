@@ -1,0 +1,44 @@
+/* InfoContainer.css */
+.infoContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.validSign {
+  display: flex;
+  align-items: center;
+  color: green;
+  margin-bottom: 10px;
+  /* Add more styles here to match the design */
+}
+
+.statusIcon {
+  color: black;
+}
+
+.dropdown {
+  width: 100%;
+  height: 25px;
+}
+
+.inputField {
+  margin-left: 1px;
+  width: 100%;
+  height: 25px;
+}
+
+.action-buttons {
+  /* Style the action button container */
+}
+
+.save-button, .print-button, .delete-button {
+  /* Style the buttons */
+}
+
+.delete-button {
+  /* Add specific styles for the delete button */
+}

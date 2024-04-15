@@ -3,6 +3,22 @@
   position: relative;
 }
 
+.diveType {
+  display: flex;
+  position: relative;
+  right: 15%;
+  border-radius: 5px;
+  border: 1px solid rgb(42, 127, 255); 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  color: rgb(42, 127, 255);
+  cursor: pointer;
+}
+
+.diveType:hover {
+  background-color: rgb(42, 127, 255);
+  color: white;
+}
+
 .diveNumber {
   display: flex;
   width: 35px;
@@ -142,8 +158,8 @@
 .diveOptionsContainer {
   position: absolute;
   color: black;
+  width: 150px;
   top: 100%;
-  left: 0;
   background-color: #fff;
   border: 1px solid #ccc;
   z-index: 1;

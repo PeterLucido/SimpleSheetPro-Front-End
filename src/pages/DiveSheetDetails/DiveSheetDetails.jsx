@@ -6,7 +6,7 @@ import * as sheetService from '../../services/sheetService';
 import SixDiveComponent from '../../components/SixDiveComponent/SixDiveComponent';
 import ElevenDiveComponent from '../../components/ElevenDiveComponent/ElevenDiveComponent';
 import { getDives } from '../../services/diveService';
-import { set } from 'mongoose';
+import InfoContainer from '../../components/InfoContainer/InfoContainer';
 
 
 const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
@@ -271,6 +271,9 @@ const DiveSheetDetails = ({ handleDeleteSheet, profile }) => {
             )}
           <div className={styles.DDTotal}>{formattedTotalDD}</div>
           </form>
+        </div>
+        <div>
+          <InfoContainer />
         </div>
         <div className={styles.btnContainer}>
           {isEditing ? (
